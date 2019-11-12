@@ -1,21 +1,112 @@
+ $toolbar: 60px;
+ 
+ mat-toolbar.mat-toolbar {
+   height: $toolbar;
+ }
+
+ /* Main area */
 .sidenav-container {
-  height: 100%;
+  height: calc(100% - #{$toolbar});
+
+  a.mat-list-item.active {
+    box-sizing: border-box;
+    background-color: var(--primary-soft);   
+    border-right: 4px solid var(--secondary); 
+    background-image: linear-gradient(to right, var(--primary), var(--primary-soft));
+  }
+
+  .panel-wrapper.mat-expansion-panel {
+    box-shadow: none;
+  }
 }
 
-.sidenav {
-  width: 200px;
-}
+.logo{
+  color: var( --primary);
+  outline: none;
+  margin-top: 5px;
 
-.sidenav .mat-toolbar {
-  background: inherit;
-}
+  :hover {
+    cursor:pointer;
+  }
 
-.mat-toolbar.mat-primary {
-  position: sticky;
-  top: 0;
-  z-index: 1;
+  h1 {
+    width: 32px;
+    height: 30px;
+    text-align: center;
+    border: 1px solid var(--primary);
+    border-radius: 50%;
+    font-size: 25px;
+    font-weight: bold;
+    padding : 0px 0px 2px 0px;
+    margin-right: 4px;
+  }
+
+  p{
+    margin: 0px 0px -2px 0px;
+    font-size: small;
+    font-weight: 300;
+    line-height: 16px;
+    letter-spacing: 1px;
+  }
 }
 
 .spacer{
   flex: 1 1 auto;
+}
+
+.expansion-wrapper {
+
+  .mat-list-item-content {
+    &:hover {
+      background-color: var(--primary-soft);
+    }
+
+    color: var(--primary-light);
+    font-size: 90%;
+    padding-left: 50px !important;
+  }
+
+  .mat-expansion-panel {
+    background-color: var(--primary);  
+  }
+
+  .mat-expansion-panel-body {
+    padding: 0px;
+  }
+
+  .mat-expansion-panel-header-title {
+    color: var(--secondary);
+  }
+
+  .mat-expansion-panel-header:not([aria-disabled=true]) {
+    background-color: var(--primary);
+    color: var(--secondary);
+    border-radius: 0px;
+  }
+}
+
+.mat-expansion-indicator::after {
+  color: var(--secondary) !important;
+}
+
+.sidenav {
+  background-color: var(--primary) !important;
+
+  .mat-list-base .mat-list-item{
+    color: var(--secondary);
+  }
+}
+
+.user-name{
+  padding-right: 12px;
+}
+
+.user-photo {
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+}
+
+.mat-drawer-inner-container .mat-nav-list .mat-list-item-content:hover {
+  background-color: var(--primary-soft);
 }
