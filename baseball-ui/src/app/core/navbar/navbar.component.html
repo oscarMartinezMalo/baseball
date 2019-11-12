@@ -1,0 +1,47 @@
+<mat-toolbar color="primary" color="primary">
+  <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
+    *ngIf="isHandset$ | async">
+    <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+  </button>
+  <span>Baseball Team</span>
+  <span class="spacer"></span>
+
+  <button mat-button class="example-icon" [matMenuTriggerFor]="menu">
+    <!-- <span class="user-name" *ngIf='!(isHandset$ | async)'>Hello Oscar</span> -->
+    <mat-icon>account_circle</mat-icon>
+    <!-- <img class="user-photo" aria-hidden [src]="resolvePhotoUrl()" /> -->
+  </button>
+
+  <mat-menu #menu="matMenu">
+    <button type="button" routerLinkActive="active" mat-menu-item *ngIf='(isHandset$ | async)'>
+      <span>Hello Oscar</span>
+    </button>
+
+    <button type="button" routerLinkActive="active" mat-menu-item class="example-icon">
+      <mat-icon>settings</mat-icon>
+      <span>Settings</span>
+    </button>
+
+    <button type="button" routerLinkActive="active" mat-menu-item>
+      <mat-icon>power_settings_new</mat-icon>
+      <span>Logout</span>
+    </button>
+  </mat-menu>
+</mat-toolbar>
+
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" color="primary" 
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="(isHandset$ | async) === false">
+    <mat-toolbar>Menu</mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item href="#">Team</a>
+      <a mat-list-item href="#">Calendar</a>
+      <a mat-list-item href="#">Messages</a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <ng-content></ng-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>
