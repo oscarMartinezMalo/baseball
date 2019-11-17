@@ -3,14 +3,15 @@ import * as _ from 'lodash';
 import { Roles } from 'src/app/shared/enums/roles.enum';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/shared/models/user';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
+  BASE_URL = 'http://localhost:3000/auth';
   userRoles: Array<Roles>;
-
   token: string;
   user: Observable<User>;
 
@@ -27,27 +28,45 @@ export class AuthService {
     //         }
     //     })
     // );
-}
+  }
 
+  get isAuthenticated(): boolean {
+    return true;
+  }
+
+  getUserInfo() { }
+
+  login(email: string, password: string) { }
+  signup(email: string, password: string) { }
+  sendVerificationEmail() { }
+  logOut() { }
+  updatePassword(passWordInfo: any) { }
+  updateUserInfo(user: User) { }
+  sendResetEmail(emailReset: any) { }
+
+
+  ///// Authorization Logic /////
   /// Helper to determine if any matching roles exist
-  matchingRole(allowedRoles: Roles[]): boolean {
+
+  checkRoleAuthorization(allowedRoles: Roles[]): boolean {
     return !_.isEmpty(_.intersection(allowedRoles, this.userRoles));
   }
 
-  ///// Authorization Logic /////
   get canRead(): boolean {
     const allowed = [Roles.ADMIN, Roles.EDITOR, Roles.USER];
-    return this.matchingRole(allowed);
+    return this.checkRoleAuthorization(allowed);
   }
 
   get canEdit(): boolean {
     const allowed = [Roles.ADMIN, Roles.EDITOR];
-    return this.matchingRole(allowed);
+    return this.checkRoleAuthorization(allowed);
   }
 
   get canDelete(): boolean {
     const allowed = [Roles.USER];
-    return this.matchingRole(allowed);
+    return this.checkRoleAuthorization(allowed);
   }
+
+  private handleMessages(error: HttpErrorResponse) { }
 
 }
