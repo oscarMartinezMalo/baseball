@@ -4,7 +4,7 @@ import { ErrorPageComponent } from './core/error-page/error-page.component';
 import { HomeComponent } from './core/home/home.component';
 import { RolesGuard } from './core/guards/roles.guard';
 import { Roles } from './shared/enums/roles.enum';
-
+import { SigninComponent } from './modules/auth/signin/signin.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full', data: { animation: 'isLeft' } },
@@ -16,7 +16,7 @@ const routes: Routes = [
       expectedRole: [Roles.ADMIN, Roles.EDITOR]
     }
   },
-
+  { path: 'signin', component: SigninComponent, data: { animation: 'isLeft' } },
   { path: 'not_found', component: ErrorPageComponent, data: { message: 'This page can’t be reached', animation: 'isRight' } },
   { path: '**', redirectTo: '/not_found', data: { animation: 'isRight' } }
 ];

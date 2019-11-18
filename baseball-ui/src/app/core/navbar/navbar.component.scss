@@ -21,7 +21,7 @@
 }
 
 .logo{
-  color: var( --primary);
+  color: var( --secondary);
   outline: none;
   margin-top: 5px;
 
@@ -33,7 +33,7 @@
     width: 32px;
     height: 30px;
     text-align: center;
-    border: 1px solid var(--primary);
+    border: 1px solid var(--secondary);
     border-radius: 50%;
     font-size: 25px;
     font-weight: bold;
@@ -61,7 +61,7 @@
       background-color: var(--primary-soft);
     }
 
-    color: var(--primary-light);
+    color: var(--secondary);
     font-size: 90%;
     padding-left: 50px !important;
   }
