@@ -1,5 +1,5 @@
 <mat-toolbar  class="container">
-  <div fxLayout="row" fxLayoutAlign="start center" fxFlex="50%">
+  <div fxLayout="row" fxLayoutAlign="start center" fxFlex="50%" >
     <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
       *ngIf="isHandset$ | async">
       <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
@@ -40,6 +40,11 @@
       <button type="button" routerLinkActive="active" mat-menu-item class="example-icon">
         <mat-icon class="material-icons md-dark ">settings</mat-icon>
         <span>Settings</span>
+      </button>
+
+      <button type="button" routerLinkActive="active" mat-menu-item class="example-icon"  routerLink="/profile">
+        <mat-icon class="material-icons md-dark ">build</mat-icon>
+        <span>Profile</span>
       </button>
 
       <button type="button" routerLinkActive="active" mat-menu-item>
@@ -86,21 +91,6 @@
         </mat-expansion-panel>
         <mat-divider></mat-divider>
 
-        <!-- <mat-expansion-panel class="panel-wrapper">
-          <mat-expansion-panel-header>
-            <mat-panel-title> Team Bad Boys </mat-panel-title>
-          </mat-expansion-panel-header>
-
-          <a mat-list-item routerLinkActive="active" [routerLink]="['/', 'pending']"
-            (click)="drawerClose()">Draft</a>
-          <a mat-list-item routerLinkActive="active" [routerLink]="['/']"
-            (click)="drawerClose()">Pending
-            Approval</a>
-          <a mat-list-item routerLinkActive="active" [routerLink]="['/myfvr', 'approved']"
-            (click)="drawerClose()">Approved</a>
-          <a mat-list-item routerLinkActive="active" [routerLink]="['/myfvr', 'declined']"
-            (click)="drawerClose()">Denied</a>
-        </mat-expansion-panel> -->
       </mat-accordion>
 
     </mat-nav-list>

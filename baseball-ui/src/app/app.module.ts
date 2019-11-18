@@ -33,6 +33,8 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from 'src/environments/environment';
 import { AuthService } from './modules/auth/auth.service';
 import { SigninComponent } from './modules/auth/signin/signin.component';
+import { SignupComponent } from './modules/auth/signup/signup.component';
+import { ProfileComponent } from './modules/auth/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,9 @@ import { SigninComponent } from './modules/auth/signin/signin.component';
     NavbarComponent,
     HomeComponent,
     ErrorPageComponent,
-    SigninComponent
+    SigninComponent,
+    SignupComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

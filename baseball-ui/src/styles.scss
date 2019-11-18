@@ -3,12 +3,12 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-:root {
-    --primary: rgb(121, 168, 207);
-    --secondary: #0f2b5c;
-    --secondary-soft: #e2f1f9;
-    --primary-light: rgb(216, 210, 210);
-    --primary-soft: rgb(173, 208, 236);;
+:root { 
+    --primary: #2e4473;
+    --primary-light: white;
+    --secondary: #4e71b1;
+    --secondary-soft: #93a4c5;
+    --secondary-light: #c8d6f3;
     --accent: #fcf071 ;
     --warn: rgb(160, 36, 56);
     --success: rgb(34, 90, 34);
@@ -19,16 +19,24 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .material-icons.md-36 { font-size: 36px; }
 .material-icons.md-48 { font-size: 48px; }
 
-.material-icons.md-dark { color: var(--secondary); }
+.material-icons.md-dark { color: var(--primary); }
 .material-icons.md-dark.md-inactive { color: var(--secondary); }
 .material-icons.md-light { color: var(--secondary-soft); }
 .material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); }
+
+
+// Router outlet heigt 100%
+.ng-tns-c0-0.ng-trigger.ng-trigger-routeAnimations {
+  height: -webkit-fill-available;
+}
 
 .container {
   width: 100%;
   height: 100%;
 }
 
-.mat-card-header-text {
-  margin: 0px !important;
+
+
+form {
+  height: -webkit-fill-available;
 }

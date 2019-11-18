@@ -10,9 +10,9 @@
 
   a.mat-list-item.active {
     box-sizing: border-box;
-    background-color: var(--primary-soft);   
-    border-right: 4px solid var(--secondary); 
-    background-image: linear-gradient(to right, var(--primary), var(--primary-soft));
+    background-color: var(--primary);   
+    border-right: 4px solid var(--primary-light); 
+    background-image: linear-gradient(to right, var(--primary), var(--secondary));
   }
 
   .panel-wrapper.mat-expansion-panel {
@@ -21,7 +21,7 @@
 }
 
 .logo{
-  color: var( --secondary);
+  color: var( --primary);
   outline: none;
   margin-top: 5px;
 
@@ -33,7 +33,7 @@
     width: 32px;
     height: 30px;
     text-align: center;
-    border: 1px solid var(--secondary);
+    border: 1px solid var(--primary);
     border-radius: 50%;
     font-size: 25px;
     font-weight: bold;
@@ -57,11 +57,11 @@
 .expansion-wrapper {
 
   .mat-list-item-content {
-    &:hover {
-      background-color: var(--primary-soft);
-    }
+    // &:hover {
+    //   background-color: var(--primary);
+    // }
 
-    color: var(--secondary);
+    color: var(--primary-light);
     font-size: 90%;
     padding-left: 50px !important;
   }
@@ -75,25 +75,24 @@
   }
 
   .mat-expansion-panel-header-title {
-    color: var(--secondary);
+    color: var(--primary-light);
   }
 
   .mat-expansion-panel-header:not([aria-disabled=true]) {
     background-color: var(--primary);
-    color: var(--secondary);
     border-radius: 0px;
   }
 }
 
 .mat-expansion-indicator::after {
-  color: var(--secondary) !important;
+  color: var(--primary-light) !important;
 }
 
 .sidenav {
   background-color: var(--primary) !important;
 
   .mat-list-base .mat-list-item{
-    color: var(--secondary);
+    color: var(--primary-light);
   }
 }
 
