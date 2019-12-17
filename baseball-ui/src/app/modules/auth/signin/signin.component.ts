@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-signin',
@@ -7,18 +8,26 @@ import { FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./signin.component.scss']
 })
 export class SigninComponent {
+  public progressBarMode = '';
+  hasUnitNumber = false;
+
   signForm = this.fb.group({
     email: ['', Validators.compose([Validators.required, this.emailValid()])],
     password: ['', [Validators.required, Validators.minLength(3)]]
   });
 
-  hasUnitNumber = false;
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService) { }
 
-  constructor(private fb: FormBuilder) { }
-
-  onSubmit() {
+  async onSubmit() {
     if (this.signForm.valid && this.signForm.touched) {
-      alert('Thanks!');
+      const email = this.signForm.get('email').value.trim();
+      const password = this.signForm.get('password').value;
+
+      this.progressBarMode = 'indeterminate';
+      await this.authService.logIn({email, password});
+      this.progressBarMode = '';
     }
   }
 

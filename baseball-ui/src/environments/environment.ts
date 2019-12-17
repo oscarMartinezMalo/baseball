@@ -5,14 +5,14 @@
 export const environment = {
   production: false,
   firebase: {
-    apiKey: 'AIzaSyC0kjXzvLJQlhf6CFSM0E6bAxnFqs25mBg',
-    authDomain: 'sport-teams.firebaseapp.com',
-    databaseURL: 'https://sport-teams.firebaseio.com',
-    projectId: 'sport-teams',
-    storageBucket: 'sport-teams.appspot.com',
-    messagingSenderId: '912329887242',
-    appId: '1:912329887242:web:3bc613693aacb29dcf19f3',
-    measurementId: 'G-75W9GPL2XE'
+    apiKey: 'AIzaSyDAdMGPcfVAalFRYkcEddv_ig5wpQ55q7o',
+    authDomain: 'baseball-team.firebaseapp.com',
+    databaseURL: 'https://baseball-team.firebaseio.com',
+    projectId: 'baseball-team',
+    storageBucket: 'baseball-team.appspot.com',
+    messagingSenderId: '670801157082',
+    appId: '1:670801157082:web:e8ae738adb9494c9bf3ee3',
+    measurementId: 'G-11Z5264FLZ'
   }
 };
 

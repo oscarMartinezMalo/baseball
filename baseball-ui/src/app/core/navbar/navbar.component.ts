@@ -3,6 +3,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay, take } from 'rxjs/operators';
 import { MatSidenav } from '@angular/material/sidenav';
+import { AuthService } from 'src/app/modules/auth/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -17,8 +18,12 @@ export class NavbarComponent {
     .pipe(
       map(result => result.matches)
     );
+  afAuth: any;
 
-  constructor(private breakpointObserver: BreakpointObserver) { }
+  constructor(
+    private breakpointObserver: BreakpointObserver,
+    private authService: AuthService
+  ) { }
 
   // tslint:disable-next-line: use-lifecycle-interface
   public async ngOnInit() {

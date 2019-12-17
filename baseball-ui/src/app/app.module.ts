@@ -20,7 +20,9 @@ import {
   MatCardModule,
   MatSelectModule,
   MatInputModule,
-  MatRadioModule
+  MatRadioModule,
+  MatSnackBarModule,
+  MatProgressBarModule
 } from '@angular/material';
 
 import { HomeComponent } from './core/home/home.component';
@@ -64,12 +66,14 @@ import { ProfileComponent } from './modules/auth/profile/profile.component';
     MatInputModule,
     MatExpansionModule,
     MatRadioModule,
+    MatSnackBarModule,
+    MatProgressBarModule,
 
-    AngularFireModule.initializeApp(environment.firebase , 'sport-teams' ),
+    AngularFireModule.initializeApp(environment.firebase ),
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
     AngularFireStorageModule, // imports firebase/storage only needed for storage features
-    // AngularFireDatabaseModule
+    // AngularFireDatabaseModule,
 
     ReactiveFormsModule,
     FormsModule,

@@ -15,12 +15,13 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import * as _ from 'lodash';
 
 import { HttpErrorResponse } from '@angular/common/http';
+
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
 
-  BASE_URL = 'http://localhost:3000/auth';
+export class AuthService {
+  BASE_URL = 'http://localhost:4000/auth';
   userRoles: Array<Roles>;
   token: string;
   user: Observable<User>;
@@ -47,10 +48,10 @@ export class AuthService {
   get isAuthenticated(): boolean {
     return true;
   }
-
   getUserInfo() { }
   // Update data from Google and emailPass SignIN and SignUP
-  updateUserData(user) {
+
+  updateUserData(user: firebase.User) {
     const userRef: AngularFirestoreDocument<User> = this.afs.doc<User>(`users/${user.uid}`);
 
     const data: User = {
@@ -58,33 +59,66 @@ export class AuthService {
       email: user.email,
       photoUrl: user.photoURL,
       displayName: user.displayName,
-      roles: user.roles
+      roles: []
     };
     return userRef.set(data);
   }
 
-  login(email: string, password: string) {
-    this.afAuth.auth.signInWithEmailAndPassword(email, password)
-      .then(credential => {
-        // Email verification
-        if (credential.user.emailVerified) {
-          this.router.navigate(['/expense']);
-          // this.displayMessaggeSnackBar('You just logged in', 'X');
-          this.updateUserData(credential.user);
-        } else {
-          this.snackBar.open('Please validate your email address. Check your inbox', 'X');
-        }
+  async logIn({ email, password }: { email: string; password: string; }) {
+    try {
+      const credential = await this.afAuth.auth.signInWithEmailAndPassword(email, password);
+      if (credential.user.emailVerified) {  // Email verification
+        this.updateUserData(credential.user).then(resp => {
+          this.router.navigate(['/home']);
+        });
+      } else {
+        this.snackBar.open('Please validate your email address. Check your inbox', 'X', {
+          duration: 3000,
+        });
       }
-      ).catch(
-        error => {
-          this.snackBar.open(error.message, error.code);
-        }
-      );
+    } catch (error) {
+      this.snackBar.open(error.message, error.code, { duration: 3000 });
+    }
   }
-  signup(email: string, password: string) { }
-  sendVerificationEmail() { }
-  logOut() { }
-  updatePassword(passWordInfo: any) { }
+
+  async signup({ email, password }: { email: string; password: string; }) {
+    try {
+      const credential = await this.afAuth.auth.createUserWithEmailAndPassword(email, password);
+      this.sendVerificationEmail(); // Verfication email
+    } catch (error) {
+      this.snackBar.open(error.message, error.code, { duration: 3000 });
+    }
+  }
+
+  sendVerificationEmail() {
+    const user = this.afAuth.auth.currentUser;
+    user.sendEmailVerification().then(() => {
+      this.snackBar.open('Email was sent to you, please confirm account and after that you can login', 'X');
+      this.router.navigate(['/signin']);
+    }).catch((error) => {
+      this.snackBar.open(error.message, 'X', { duration: 3000 });
+    });
+  }
+
+  logOut() {
+    this.afAuth.auth.signOut().then(() => {
+      this.token = null;
+      this.router.navigate(['/home']);
+    }).catch((error) => {
+      this.snackBar.open(error.message, error.code, { duration: 3000 });
+    });
+  }
+
+  updatePassword(passWordInfo: any) {
+    this.afAuth.auth.sendPasswordResetEmail(passWordInfo).then(() => {
+      this.snackBar.open('An email was sent to you', 'X', {
+        duration: 3000,
+      });
+      this.router.navigate(['/signin']);
+    }).catch((error) => {
+      this.snackBar.open(error.message, 'X', { duration: 3000 });
+    });
+  }
   updateUserInfo(user: User) { }
   sendResetEmail(emailReset: any) { }
 
