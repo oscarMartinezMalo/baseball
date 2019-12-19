@@ -1,8 +1,7 @@
-<mat-progress-bar [mode]="progressBarMode" value="0"></mat-progress-bar>
 <form [formGroup]="signUpForm" novalidate (ngSubmit)="onSubmit()" fxLayout="column" fxLayoutAlign="start center">
+  <mat-progress-bar [mode]="progressBarMode" value="0"></mat-progress-bar>
+  <mat-card style="width: 400px;" fxLayout="column" fxLayoutAlign="center stretch" fxFlexOffset="10%">
 
-  <mat-card style="width: 400px;" fxLayout="column" fxLayoutAlign="center stretch" fxFlexOffset="10%">    
-    
     <mat-card-title>Sign Up</mat-card-title>
 
     <mat-card-content fxLayout="column" fxLayoutAlign="space-around center">

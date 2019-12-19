@@ -1,6 +1,5 @@
-<mat-progress-bar [mode]="progressBarMode" value="0"></mat-progress-bar>
 <form [formGroup]="signForm" novalidate (ngSubmit)="onSubmit()" fxLayout="column" fxLayoutAlign="start center">
-
+  <mat-progress-bar [mode]="progressBarMode" value="0"></mat-progress-bar>
   <mat-card style="width: 400px;" fxLayout="column" fxLayoutAlign="center stretch" fxFlexOffset="10%">
     <mat-card-title>Sign In</mat-card-title>
 
@@ -10,7 +9,8 @@
         <mat-error *ngIf="signForm.controls['email'].hasError('required')">
           Email <strong>required</strong>
         </mat-error>
-        <mat-error *ngIf="signForm.controls['email'].hasError('invalidEmail') && !signForm.controls['email'].hasError('required')">
+        <mat-error
+          *ngIf="signForm.controls['email'].hasError('invalidEmail') && !signForm.controls['email'].hasError('required')">
           Not a valid <strong>Email</strong>
         </mat-error>
       </mat-form-field>
@@ -20,7 +20,8 @@
         <mat-error *ngIf="signForm.controls['password'].hasError('required')">
           Password <strong>required</strong>
         </mat-error>
-        <mat-error *ngIf="signForm.controls['password'].hasError('minlength') && !signForm.controls['email'].hasError('required')">
+        <mat-error
+          *ngIf="signForm.controls['password'].hasError('minlength') && !signForm.controls['email'].hasError('required')">
           Password should have more than <strong>3 Characters</strong>
         </mat-error>
       </mat-form-field>

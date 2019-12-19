@@ -1,64 +1,68 @@
-<mat-toolbar  class="container">
-  <div fxLayout="row" fxLayoutAlign="start center" fxFlex="50%" >
-    <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
-      *ngIf="isHandset$ | async">
+<mat-toolbar class="container">
+  <div fxLayout="row" fxLayoutAlign="start center" fxFlex="50%">
+    <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" 
+      *ngIf="(isHandset$ | async) && (authService.user | async)">
       <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
     </button>
     <span class="spacer" *ngIf='(isHandset$ | async)'></span>
 
-    <div class="logo" fxLayout="column" fxLayoutAlign="space-around center" routerLink="/">
+    <!-- <div class="logo" fxLayout="column" fxLayoutAlign="space-around center" routerLink="/" fxHide.xs="true"> -->
+    <!-- <div class="logo" fxLayout="column" fxLayoutAlign="space-around center" fxLayoutAlign.xs="start center" routerLink="/">
+
       <div fxLayout="row" fxLayoutAlign="space-around center">
         <h1>B</h1>
         <h1>S</h1>
         <h1>T</h1>
       </div>
       <p> Baseball Team </p>
-    </div>
+    </div> -->
   </div>
 
-  <div fxLayout="row" fxLayoutAlign="end center"  fxFlex="50%" fxLayoutGap="16px" >
-
-    <button mat-raised-button color="primary"  routerLinkActive="active" routerLink="/signin">
-      Sign In
-    </button>
-
-    <button mat-raised-button color="primary"  routerLinkActive="active" routerLink="/signup">
-      Sign Up
-    </button>
-
-    <button mat-button class="example-icon" [matMenuTriggerFor]="menu">
-      <!-- <span class="user" *ngIf='!(isHandset$ | async)'>Hello Oscar</span> -->
-      <mat-icon class="material-icons md-dark ">account_circle</mat-icon>
-      <!-- <img class="user-photo" aria-hidden [src]="resolvePhotoUrl()" /> -->
-    </button>
-
-    <mat-menu #menu="matMenu">
-      <button type="button" routerLinkActive="active" mat-menu-item *ngIf='(isHandset$ | async)'>
-        <span>Hello Oscar</span>
+  <div fxLayout="row" fxLayoutAlign="end center" fxFlex="50%" fxLayoutGap="16px">
+    <ng-template [ngIf]='!(authService.user | async)' [ngIfElse]="logged">
+      <button mat-raised-button color="primary" routerLinkActive="active" routerLink="/signin" (click)="drawerClose()">
+        Sign In
       </button>
 
-      <button type="button" routerLinkActive="active" mat-menu-item class="example-icon">
-        <mat-icon class="material-icons md-dark ">settings</mat-icon>
-        <span>Settings</span>
+      <button mat-raised-button color="primary" routerLinkActive="active" routerLink="/signup" (click)="drawerClose()">
+        Sign Up
+      </button>
+    </ng-template>
+
+    <ng-template #logged>
+      <button mat-button class="example-icon" [matMenuTriggerFor]="menu">
+        <!-- <span class="user" *ngIf='!(isHandset$ | async)'>Hello Oscar</span> -->
+        <mat-icon class="material-icons md-dark ">account_circle</mat-icon>
+        <!-- <img class="user-photo" aria-hidden [src]="resolvePhotoUrl()" /> -->
       </button>
 
-      <button type="button" routerLinkActive="active" mat-menu-item class="example-icon"  routerLink="/profile">
-        <mat-icon class="material-icons md-dark ">build</mat-icon>
-        <span>Profile</span>
-      </button>
+      <mat-menu #menu="matMenu">
+        <button type="button" routerLinkActive="active" mat-menu-item *ngIf='(isHandset$ | async)'>
+          <span>Hello Oscar</span>
+        </button>
 
-      <button type="button" routerLinkActive="active" mat-menu-item (click)="authService.logOut()">
-        <mat-icon class="material-icons md-dark ">power_settings_new</mat-icon>
-        <span>Logout</span>
-      </button>
-    </mat-menu>
+        <button type="button" routerLinkActive="active" mat-menu-item class="example-icon">
+          <mat-icon class="material-icons md-dark ">settings</mat-icon>
+          <span>Settings</span>
+        </button>
+
+        <button type="button" routerLinkActive="active" mat-menu-item class="example-icon" routerLink="/profile">
+          <mat-icon class="material-icons md-dark ">build</mat-icon>
+          <span>Profile</span>
+        </button>
+
+        <button type="button" routerLinkActive="active" mat-menu-item (click)="authService.logOut()">
+          <mat-icon class="material-icons md-dark ">power_settings_new</mat-icon>
+          <span>Logout</span>
+        </button>
+      </mat-menu>
+    </ng-template>
   </div>
-
 </mat-toolbar>
 
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav #drawer class="sidenav" color="primary" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-    [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
+    [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false"  *ngIf="(authService.user | async)">
 
     <mat-nav-list>
       <a mat-list-item (click)="drawerClose()" routerLinkActive="active" [routerLink]="['/home']">Home</a>

@@ -20,35 +20,35 @@
   }
 }
 
-.logo{
-  color: var( --primary);
-  outline: none;
-  margin-top: 5px;
+// .logo{
+//   color: var( --primary);
+//   outline: none;
+//   margin-top: 5px;
 
-  :hover {
-    cursor:pointer;
-  }
+//   :hover {
+//     cursor:pointer;
+//   }
 
-  h1 {
-    width: 32px;
-    height: 30px;
-    text-align: center;
-    border: 1px solid var(--primary);
-    border-radius: 50%;
-    font-size: 25px;
-    font-weight: bold;
-    padding : 0px 0px 2px 0px;
-    margin-right: 4px;
-  }
+//   h1 {
+//     width: 32px;
+//     height: 30px;
+//     text-align: center;
+//     border: 1px solid var(--primary);
+//     border-radius: 50%;
+//     font-size: 25px;
+//     font-weight: bold;
+//     padding : 0px 0px 2px 0px;
+//     margin-right: 4px;
+//   }
 
-  p{
-    margin: 0px 0px -2px 0px;
-    font-size: small;
-    font-weight: 300;
-    line-height: 16px;
-    letter-spacing: 1px;
-  }
-}
+//   p{
+//     margin: 0px 0px -2px 0px;
+//     font-size: small;
+//     font-weight: 300;
+//     line-height: 16px;
+//     letter-spacing: 1px;
+//   }
+// }
 
 .spacer{
   flex: 1 1 auto;

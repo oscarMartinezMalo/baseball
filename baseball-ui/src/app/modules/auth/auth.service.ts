@@ -9,7 +9,7 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firest
 import { Router } from '@angular/router';
 
 import { Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, take, map } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import * as _ from 'lodash';
@@ -49,8 +49,8 @@ export class AuthService {
     return true;
   }
   getUserInfo() { }
-  // Update data from Google and emailPass SignIN and SignUP
 
+  // Update data from Google and emailPass SignIN and SignUP
   updateUserData(user: firebase.User) {
     const userRef: AngularFirestoreDocument<User> = this.afs.doc<User>(`users/${user.uid}`);
 
@@ -67,9 +67,12 @@ export class AuthService {
   async logIn({ email, password }: { email: string; password: string; }) {
     try {
       const credential = await this.afAuth.auth.signInWithEmailAndPassword(email, password);
+
       if (credential.user.emailVerified) {  // Email verification
-        this.updateUserData(credential.user).then(resp => {
-          this.router.navigate(['/home']);
+
+        this.user.pipe(take(1)).subscribe(userData => {
+          // If User does have a role go to page to complete user information.
+          userData.roles.length ? this.router.navigate(['/home']) : this.router.navigate(['/profile']);
         });
       } else {
         this.snackBar.open('Please validate your email address. Check your inbox', 'X', {
@@ -84,6 +87,8 @@ export class AuthService {
   async signup({ email, password }: { email: string; password: string; }) {
     try {
       const credential = await this.afAuth.auth.createUserWithEmailAndPassword(email, password);
+
+      await this.updateUserData(credential.user); // Add User to the Database
       this.sendVerificationEmail(); // Verfication email
     } catch (error) {
       this.snackBar.open(error.message, error.code, { duration: 3000 });
@@ -103,7 +108,7 @@ export class AuthService {
   logOut() {
     this.afAuth.auth.signOut().then(() => {
       this.token = null;
-      this.router.navigate(['/home']);
+      this.router.navigate(['/signin']);
     }).catch((error) => {
       this.snackBar.open(error.message, error.code, { duration: 3000 });
     });
