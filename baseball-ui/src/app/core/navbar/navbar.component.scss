@@ -63,7 +63,7 @@
 
     color: var(--primary-light);
     font-size: 90%;
-    padding-left: 50px !important;
+    padding-left: 35px !important;
   }
 
   .mat-expansion-panel {
@@ -81,6 +81,7 @@
   .mat-expansion-panel-header:not([aria-disabled=true]) {
     background-color: var(--primary);
     border-radius: 0px;
+    padding: 0px 16px;
   }
 }
 
@@ -108,4 +109,9 @@
 
 .mat-drawer-inner-container .mat-nav-list .mat-list-item-content:hover {
   background-color: var(--primary-soft);
+}
+
+button.ng-star-inserted.mat-stroked-button {
+    background: var(--primary);
+    color: white;
 }

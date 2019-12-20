@@ -20,11 +20,11 @@
 
   <div fxLayout="row" fxLayoutAlign="end center" fxFlex="50%" fxLayoutGap="16px">
     <ng-template [ngIf]='!(authService.user | async)' [ngIfElse]="logged">
-      <button mat-raised-button color="primary" routerLinkActive="active" routerLink="/signin" (click)="drawerClose()">
+      <button routerLinkActive="active" routerLink="/signin" (click)="drawerClose()" #rla="routerLinkActive" [ngClass]="rla.isActive?'mat-button':'mat-stroked-button'">
         Sign In
       </button>
 
-      <button mat-raised-button color="primary" routerLinkActive="active" routerLink="/signup" (click)="drawerClose()">
+      <button routerLinkActive="active" routerLink="/signup" (click)="drawerClose()"  #rlac="routerLinkActive" [ngClass]="rlac.isActive?'mat-button':'mat-stroked-button'">
         Sign Up
       </button>
     </ng-template>
@@ -63,6 +63,7 @@
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav #drawer class="sidenav" color="primary" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false"  *ngIf="(authService.user | async)">
+    <!-- [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false"  *ngIf="(authService.user | async)"> -->
 
     <mat-nav-list>
       <a mat-list-item (click)="drawerClose()" routerLinkActive="active" [routerLink]="['/home']">Home</a>
