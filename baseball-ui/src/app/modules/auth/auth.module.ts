@@ -9,21 +9,31 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCardModule } from '@angular/material/card';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ProfileComponent } from './profile/profile.component';
-
+import { TeamsDropdownComponent } from 'src/app/shared/components/teams-dropdown/teams-dropdown.component';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 
 @NgModule({
-  declarations: [ UpdateUserComponent, ForgotPassComponent, SignupComponent, SigninComponent, ProfileComponent],
-  imports: [
-    CommonModule,
-    MatInputModule,
-    MatButtonModule,
-    MatSelectModule,
-    MatRadioModule,
-    MatCardModule,
-    ReactiveFormsModule
-  ]
+    declarations: [
+        UpdateUserComponent,
+        ForgotPassComponent,
+        SignupComponent,
+        SigninComponent,
+        ProfileComponent,
+        TeamsDropdownComponent
+    ],
+    imports: [
+        CommonModule,
+        MatInputModule,
+        MatButtonModule,
+        MatSelectModule,
+        MatRadioModule,
+        MatCardModule,
+        ReactiveFormsModule,
+        FormsModule,
+        MatProgressBarModule
+    ]
 })
-export class AuthModule { }
+export class AuthModule {}

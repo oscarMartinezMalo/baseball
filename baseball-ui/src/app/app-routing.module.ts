@@ -7,6 +7,7 @@ import { Roles } from './shared/enums/roles.enum';
 import { SigninComponent } from './modules/auth/signin/signin.component';
 import { SignupComponent } from './modules/auth/signup/signup.component';
 import { ProfileComponent } from './modules/auth/profile/profile.component';
+import { TeamsDropdownComponent } from './shared/components/teams-dropdown/teams-dropdown.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full', data: { animation: 'isLeft' } },
@@ -21,6 +22,8 @@ const routes: Routes = [
   { path: 'signin', component: SigninComponent, data: { animation: 'isRight' } },
   { path: 'signup', component: SignupComponent, data: { animation: 'isLeft' } },
   { path: 'profile', component: ProfileComponent, data: { animation: 'isLeft' } },
+  { path: 'teamdropdown', component: TeamsDropdownComponent, data: { animation: 'isLeft' } },
+
 
   { path: 'not_found', component: ErrorPageComponent, data: { message: 'This page can’t be reached', animation: 'isRight' } },
   { path: '**', redirectTo: '/not_found', data: { animation: 'isRight' } }

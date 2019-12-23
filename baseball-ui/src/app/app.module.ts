@@ -10,19 +10,19 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import {
-  MatListModule,
-  MatIconModule,
-  MatSidenavModule,
-  MatButtonModule,
-  MatToolbarModule,
-  MatMenuModule,
-  MatExpansionModule,
-  MatCardModule,
-  MatSelectModule,
-  MatInputModule,
-  MatRadioModule,
-  MatSnackBarModule,
-  MatProgressBarModule
+    MatListModule,
+    MatIconModule,
+    MatSidenavModule,
+    MatButtonModule,
+    MatToolbarModule,
+    MatMenuModule,
+    MatExpansionModule,
+    MatCardModule,
+    MatSelectModule,
+    MatInputModule,
+    MatRadioModule,
+    MatSnackBarModule,
+    MatProgressBarModule
 } from '@angular/material';
 
 import { HomeComponent } from './core/home/home.component';
@@ -37,49 +37,50 @@ import { AuthService } from './modules/auth/auth.service';
 import { SigninComponent } from './modules/auth/signin/signin.component';
 import { SignupComponent } from './modules/auth/signup/signup.component';
 import { ProfileComponent } from './modules/auth/profile/profile.component';
+import { TeamsDropdownComponent } from './shared/components/teams-dropdown/teams-dropdown.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    NavbarComponent,
-    HomeComponent,
-    ErrorPageComponent,
-    SigninComponent,
-    SignupComponent,
-    ProfileComponent
-  ],
-  imports: [
-    BrowserModule,
+    declarations: [
+        AppComponent,
+        NavbarComponent,
+        HomeComponent,
+        ErrorPageComponent,
+        SigninComponent,
+        SignupComponent,
+        ProfileComponent,
+        TeamsDropdownComponent
+    ],
+    imports: [
+        BrowserModule,
 
-    FlexLayoutModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    LayoutModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatListModule,
-    MatMenuModule,
-    MatCardModule,
-    MatSelectModule,
-    MatInputModule,
-    MatExpansionModule,
-    MatRadioModule,
-    MatSnackBarModule,
-    MatProgressBarModule,
+        FlexLayoutModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        LayoutModule,
+        MatToolbarModule,
+        MatButtonModule,
+        MatSidenavModule,
+        MatIconModule,
+        MatListModule,
+        MatMenuModule,
+        MatCardModule,
+        MatSelectModule,
+        MatInputModule,
+        MatExpansionModule,
+        MatRadioModule,
+        MatSnackBarModule,
+        MatProgressBarModule,
 
-    AngularFireModule.initializeApp(environment.firebase ),
-    AngularFirestoreModule, // imports firebase/firestore, only needed for database features
-    AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
-    AngularFireStorageModule, // imports firebase/storage only needed for storage features
-    // AngularFireDatabaseModule,
+        AngularFireModule.initializeApp(environment.firebase),
+        AngularFirestoreModule, // imports firebase/firestore, only needed for database features
+        AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
+        AngularFireStorageModule, // imports firebase/storage only needed for storage features
+        // AngularFireDatabaseModule,
 
-    ReactiveFormsModule,
-    FormsModule,
-
-  ],
-  providers: [AuthService],
-  bootstrap: [AppComponent]
+        ReactiveFormsModule,
+        FormsModule
+    ],
+    providers: [AuthService],
+    bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

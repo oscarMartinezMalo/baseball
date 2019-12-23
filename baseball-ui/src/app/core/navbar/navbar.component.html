@@ -62,7 +62,7 @@
 
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav #drawer class="sidenav" color="primary" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-    [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false"  *ngIf="(authService.user | async)">
+    [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="!(isHandset$ | async) && (authService.user | async)">
     <!-- [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false"  *ngIf="(authService.user | async)"> -->
 
     <mat-nav-list>
