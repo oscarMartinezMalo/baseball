@@ -6,7 +6,8 @@ import {
     ElementRef,
     Input
 } from '@angular/core';
-import { NG_VALUE_ACCESSOR, SelectControlValueAccessor } from '@angular/forms';
+import { NG_VALUE_ACCESSOR, SelectControlValueAccessor, NG_ASYNC_VALIDATORS, FormControl, NG_VALIDATORS, Validator } from '@angular/forms';
+import { Observable, of } from 'rxjs';
 
 @Component({
     // tslint:disable-next-line:component-selector
@@ -18,15 +19,16 @@ import { NG_VALUE_ACCESSOR, SelectControlValueAccessor } from '@angular/forms';
             provide: NG_VALUE_ACCESSOR,
             useExisting: forwardRef(() => TeamsDropdownComponent),
             multi: true
-        }
+        },{ provide: NG_VALIDATORS, useExisting: forwardRef(() => TeamsDropdownComponent), multi: true }
     ]
 })
 export class TeamsDropdownComponent extends SelectControlValueAccessor
-    implements OnInit {
+    implements OnInit, Validator {
     value: string;
     disabled: boolean;
     teams: string[];
     public progressMode = '';
+    private parseError: boolean;
 
     onChange: (_: any) => void;
     onTouched: () => void;
@@ -53,6 +55,15 @@ export class TeamsDropdownComponent extends SelectControlValueAccessor
         this.onTouched();
         this.onChange($event.value);
     }
+
+    validate(c: FormControl):any {
+        console.log("u",c);
+        return (!this.parseError) ? null : {
+            jsonParseError: {
+                valid: false,
+            },
+        };
+      }
 
     // tslint:disable-next-line:variable-name
     constructor(_renderer: Renderer2, _elementRef: ElementRef) {

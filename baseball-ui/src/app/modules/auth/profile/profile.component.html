@@ -6,7 +6,7 @@
         <mat-card-content>
             <div class="row">
                 <div class="col">
-                    <mat-form-field class="full-width">
+                    <mat-form-field class="full-width" appearance="outline">
                         <mat-label>Select your Role</mat-label>
                         <mat-select formControlName="role">
                             <mat-option value="player">Player</mat-option>
@@ -16,44 +16,26 @@
                     </mat-form-field>
                 </div>
                 <div class="col">
-                    <!-- <mat-form-field> -->
-                        <teams-dropdown formControlName="team"></teams-dropdown>
-                    <!-- </mat-form-field> -->
+                    <teams-dropdown formControlName="team"></teams-dropdown>
+                    <div *ngIf="profileForm.controls['team'].status === 'INVALID' && (profileForm.controls['team'].dirty || profileForm.controls['team'].touched)"                     
+                        [ngClass]="{'alert-danger': (profileForm.controls['team'].dirty || profileForm.controls['team'].touched)}">
+                        <mat-error *ngIf="profileForm.controls['team'].errors.required">Team is <strong>required</strong> </mat-error>
+                    </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col">
-                    <mat-form-field class="full-width">
-                        <input
-                            matInput
-                            placeholder="First name"
-                            formControlName="firstName"
-                        />
-                        <mat-error
-                            *ngIf="
-                                profileForm.controls['firstName'].hasError(
-                                    'required'
-                                )
-                            "
-                        >
+                    <mat-form-field class="full-width" appearance="outline">
+                        <input matInput placeholder="First name" formControlName="firstName" />
+                        <mat-error *ngIf="profileForm.controls['firstName'].hasError('required')">
                             First name is <strong>required</strong>
                         </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col">
-                    <mat-form-field class="full-width">
-                        <input
-                            matInput
-                            placeholder="Last name"
-                            formControlName="lastName"
-                        />
-                        <mat-error
-                            *ngIf="
-                                profileForm.controls['lastName'].hasError(
-                                    'required'
-                                )
-                            "
-                        >
+                    <mat-form-field class="full-width" appearance="outline">
+                        <input matInput placeholder="Last name" formControlName="lastName" />
+                        <mat-error *ngIf="profileForm.controls['lastName'].hasError('required')">
                             Last name is <strong>required</strong>
                         </mat-error>
                     </mat-form-field>
@@ -61,21 +43,13 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <mat-form-field class="full-width">
-                        <input
-                            matInput
-                            placeholder="Age"
-                            formControlName="age"
-                        />
+                    <mat-form-field class="full-width" appearance="outline">
+                        <input matInput placeholder="Age" formControlName="age" />
                     </mat-form-field>
                 </div>
                 <div class="col">
-                    <mat-form-field class="full-width">
-                        <input
-                            matInput
-                            placeholder="Phone"
-                            formControlName="phone"
-                        />
+                    <mat-form-field class="full-width" appearance="outline">
+                        <input matInput placeholder="Phone" formControlName="phone" />
                     </mat-form-field>
                 </div>
             </div>

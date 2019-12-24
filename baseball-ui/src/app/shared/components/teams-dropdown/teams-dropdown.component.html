@@ -1,20 +1,13 @@
-<mat-form-field>
+<mat-form-field appearance="outline" style="width: 100%;">
     <mat-label>Select an option</mat-label>
-    <mat-select
-        [disabled]="disabled"
-        [(ngModel)]="value"
-        (selectionChange)="selectChange($event)"
-        [compareWith]="compareFn"
-    >
+    <mat-select [disabled]="disabled" [(ngModel)]="value" (selectionChange)="selectChange($event)"
+        [compareWith]="compareFn">
         <!-- (selectionChange)="onChange($event.value)" -->
         <mat-option *ngFor="let team of teams" [value]="team">
             {{ team }}
         </mat-option>
     </mat-select>
     <div style="position:relative; top: 8px; height: 2px; overflow: hidden;">
-        <mat-progress-bar
-            [mode]="progressMode"
-            *ngIf="progressMode"
-        ></mat-progress-bar>
+        <mat-progress-bar [mode]="progressMode" *ngIf="progressMode"></mat-progress-bar>
     </div>
 </mat-form-field>

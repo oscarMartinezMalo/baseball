@@ -19,6 +19,8 @@ export class ProfileComponent {
     constructor(private fb: FormBuilder) {}
 
     onSubmit() {
+        console.log(this.profileForm);
         console.log(this.profileForm.value);
+        this.profileForm.get('team').markAsTouched();
     }
 }
