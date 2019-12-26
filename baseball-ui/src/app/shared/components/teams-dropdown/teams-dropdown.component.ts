@@ -6,8 +6,13 @@ import {
     ElementRef,
     Input
 } from '@angular/core';
-import { NG_VALUE_ACCESSOR, SelectControlValueAccessor, NG_ASYNC_VALIDATORS, FormControl, NG_VALIDATORS, Validator } from '@angular/forms';
-import { Observable, of } from 'rxjs';
+import {
+    NG_VALUE_ACCESSOR,
+    SelectControlValueAccessor,
+    Validator,
+    FormControl,
+    NG_VALIDATORS
+} from '@angular/forms';
 
 @Component({
     // tslint:disable-next-line:component-selector
@@ -19,16 +24,21 @@ import { Observable, of } from 'rxjs';
             provide: NG_VALUE_ACCESSOR,
             useExisting: forwardRef(() => TeamsDropdownComponent),
             multi: true
-        },{ provide: NG_VALIDATORS, useExisting: forwardRef(() => TeamsDropdownComponent), multi: true }
+        },
+        {
+            provide: NG_VALIDATORS,
+            useExisting: forwardRef(() => TeamsDropdownComponent),
+            multi: true
+        }
     ]
 })
 export class TeamsDropdownComponent extends SelectControlValueAccessor
     implements OnInit, Validator {
+    required: boolean = false;
     value: string;
     disabled: boolean;
     teams: string[];
     public progressMode = '';
-    private parseError: boolean;
 
     onChange: (_: any) => void;
     onTouched: () => void;
@@ -38,7 +48,6 @@ export class TeamsDropdownComponent extends SelectControlValueAccessor
     }
 
     writeValue(val: any): void {
-        console.log(val);
         this.value = val;
     }
     registerOnChange(fn: (value: any) => any): void {
@@ -56,14 +65,17 @@ export class TeamsDropdownComponent extends SelectControlValueAccessor
         this.onChange($event.value);
     }
 
-    validate(c: FormControl):any {
-        console.log("u",c);
-        return (!this.parseError) ? null : {
-            jsonParseError: {
-                valid: false,
-            },
-        };
-      }
+    validate(control: FormControl): any {
+        if (control) {
+            if (control.hasError('required')) {
+                this.required = true;
+                return { required: true };
+            } else {
+                this.required = false;
+                return { required: false };
+            }
+        }
+    }
 
     // tslint:disable-next-line:variable-name
     constructor(_renderer: Renderer2, _elementRef: ElementRef) {

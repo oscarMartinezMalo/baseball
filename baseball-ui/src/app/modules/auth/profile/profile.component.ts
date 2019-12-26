@@ -10,7 +10,7 @@ export class ProfileComponent {
     profileForm = this.fb.group({
         role: ['player', Validators.required],
         team: [null, Validators.required],
-        firstName: ['Oscar', Validators.required],
+        firstName: [null, Validators.required],
         lastName: [null, Validators.required],
         age: [null, Validators.required],
         phone: [null, Validators.required]
