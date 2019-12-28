@@ -34,7 +34,7 @@ import {
 })
 export class TeamsDropdownComponent extends SelectControlValueAccessor
     implements OnInit, Validator {
-    required: boolean = false;
+    required = false;
     value: string;
     disabled: boolean;
     teams: string[];
@@ -69,10 +69,10 @@ export class TeamsDropdownComponent extends SelectControlValueAccessor
         if (control) {
             if (control.hasError('required')) {
                 this.required = true;
-                return { required: true };
+                // return { required: true };
             } else {
                 this.required = false;
-                return { required: false };
+                // return { required: false };
             }
         }
     }

@@ -8,7 +8,10 @@
                 <div class="col">
                     <mat-form-field class="full-width" appearance="outline">
                         <mat-label>Select your Role *</mat-label>
-                        <mat-select formControlName="role">
+                        <mat-select
+                            formControlName="role"
+                            (selectionChange)="onRoleChange($event)"
+                        >
                             <mat-option value="player">Player</mat-option>
                             <mat-option value="coach">Coach</mat-option>
                             <mat-option value="fan">Fan</mat-option>
@@ -27,39 +30,89 @@
                 <div class="col">
                     <mat-form-field class="full-width" appearance="outline">
                         <mat-label>First Name *</mat-label>
-                        <input matInput placeholder="Your First Name" formControlName="firstName" />
-                        <mat-error *ngIf="profileForm.controls['firstName'].hasError('required')">
+                        <input matInput placeholder="Your First Name" formControlName="firstName"/>
+                        <mat-error
+                            *ngIf="
+                                profileForm.controls['firstName'].hasError(
+                                    'required'
+                                )
+                            "
+                        >
                             First name is <strong>required</strong>
                         </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col">
                     <mat-form-field class="full-width" appearance="outline">
-                        <input matInput placeholder="Your Last Name" formControlName="lastName" />
+                        <input
+                            matInput
+                            placeholder="Your Last Name"
+                            formControlName="lastName"
+                        />
                         <mat-label>Last Name *</mat-label>
-                        <mat-error *ngIf="profileForm.controls['lastName'].hasError('required')">
+                        <mat-error
+                            *ngIf="
+                                profileForm.controls['lastName'].hasError(
+                                    'required'
+                                )
+                            "
+                        >
                             Last name is <strong>required</strong>
                         </mat-error>
                     </mat-form-field>
                 </div>
             </div>
             <div class="row">
-                <div class="col">
+                <div
+                    class="col"
+                    *ngIf="profileForm.controls['role'].value === 'player'"
+                >
                     <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Age *</mat-label>
-                        <input matInput placeholder="Your Age" formControlName="age" />
-                        <mat-error *ngIf="profileForm.controls['age'].hasError('required')">
+                        <mat-label>Age *</mat-label>
+                        <input
+                            matInput
+                            placeholder="Your Age"
+                            formControlName="age"
+                        />
+                        <mat-error
+                            *ngIf="
+                                profileForm.controls['age'].hasError('required')
+                            "
+                        >
                             Age is <strong>required</strong>
                         </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col">
                     <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Phone Number *</mat-label>
-                        <input matInput placeholder="Your Phone" formControlName="phone" />
-                        <mat-error *ngIf="profileForm.controls['phone'].hasError('required')">
+                        <mat-label>Phone Number *</mat-label>
+                        <input
+                            matInput
+                            placeholder="Your Phone"
+                            formControlName="phone"
+                        />
+                        <mat-error
+                            *ngIf="
+                                profileForm.controls['phone'].hasError(
+                                    'required'
+                                )
+                            "
+                        >
                             Phone is <strong>required</strong>
                         </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col" *ngIf="profileForm.controls['role'].value === 'fan'">
+                    <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>Select player to fallow *</mat-label>
+                        <mat-select
+                            formControlName="fanOf"
+                            (selectionChange)="onRoleChange($event)"
+                        >
+                            <mat-option value="Luis Suarez">Luis Suarez</mat-option>
+                            <mat-option value="Leonel Messi">Leonel Messi</mat-option>
+                            <mat-option value="Leonardo DaVinci">Leonardo DaVinci</mat-option>
+                        </mat-select>
                     </mat-form-field>
                 </div>
             </div>
