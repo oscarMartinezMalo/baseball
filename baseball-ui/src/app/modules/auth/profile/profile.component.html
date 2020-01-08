@@ -9,7 +9,7 @@
                     <mat-form-field class="full-width" appearance="outline">
                         <mat-label>Select your Role *</mat-label>
                         <mat-select
-                            formControlName="role"
+                            formControlName="roles"
                             (selectionChange)="onRoleChange($event)"
                         >
                             <mat-option value="player">Player</mat-option>
@@ -65,7 +65,7 @@
             <div class="row">
                 <div
                     class="col"
-                    *ngIf="profileForm.controls['role'].value === 'player'"
+                    *ngIf="profileForm.controls['roles'].value === 'player'"
                 >
                     <mat-form-field class="full-width" appearance="outline">
                         <mat-label>Age *</mat-label>
@@ -102,7 +102,7 @@
                         </mat-error>
                     </mat-form-field>
                 </div>
-                <div class="col" *ngIf="profileForm.controls['role'].value === 'fan'">
+                <div class="col" *ngIf="profileForm.controls['roles'].value === 'fan'">
                     <mat-form-field class="full-width" appearance="outline">
                         <mat-label>Select player to fallow *</mat-label>
                         <mat-select

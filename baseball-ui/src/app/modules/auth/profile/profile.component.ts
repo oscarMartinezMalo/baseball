@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { UserPlayer } from 'src/app/shared/models/user-player';
+import { AuthService } from '../auth.service';
 
 @Component({
     selector: 'app-profile',
@@ -13,11 +15,13 @@ export class ProfileComponent implements OnInit {
         this.profileForm = this.createPlayer();
     }
 
-    constructor(private fb: FormBuilder) {}
+    constructor(
+        private fb: FormBuilder,
+        private authService: AuthService) {}
 
     createPlayer(): FormGroup {
         return this.fb.group({
-            role: ['player', Validators.required],
+            roles: ['player', Validators.required],
             team: [null, Validators.required],
             firstName: [null, Validators.required],
             lastName: [null, Validators.required],
@@ -28,7 +32,7 @@ export class ProfileComponent implements OnInit {
 
     createCoach(): FormGroup {
         return this.fb.group({
-            role: ['coach', Validators.required],
+            roles: ['coach', Validators.required],
             team: [null, Validators.required],
             firstName: [null, Validators.required],
             lastName: [null, Validators.required],
@@ -38,7 +42,7 @@ export class ProfileComponent implements OnInit {
 
     createFan(): FormGroup {
         return this.fb.group({
-            role: ['fan', Validators.required],
+            roles: ['fan', Validators.required],
             team: [null, Validators.required],
             firstName: [null, Validators.required],
             lastName: [null, Validators.required],
@@ -65,7 +69,8 @@ export class ProfileComponent implements OnInit {
     onSubmit() {
         // this.profileForm.get("team").markAsTouched();
         if (this.profileForm.valid) {
-            console.log(this.profileForm.value);
+            // console.log(this.profileForm.value);
+            this.authService.createUserData(this.profileForm.value);
         }
     }
 }

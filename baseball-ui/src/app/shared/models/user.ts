@@ -1,9 +1,9 @@
 import { Roles } from '../enums/roles.enum';
 
-export interface User {
+export class User {
     uid: string;
     email: string;
     photoUrl: string;
-    displayName: string;
+    firstName: string;
     roles: Roles[];
 }
