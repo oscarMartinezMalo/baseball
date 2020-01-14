@@ -70,6 +70,8 @@ export class ProfileComponent implements OnInit {
         // this.profileForm.get("team").markAsTouched();
         if (this.profileForm.valid) {
             // console.log(this.profileForm.value);
+
+            // Check if the profile is a coach
             this.authService.createUserData(this.profileForm.value);
         }
     }
