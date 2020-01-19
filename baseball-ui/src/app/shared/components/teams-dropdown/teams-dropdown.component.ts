@@ -13,6 +13,8 @@ import {
     FormControl,
     NG_VALIDATORS
 } from '@angular/forms';
+import { SharedService } from '../../shared.service';
+import { take } from 'rxjs/operators';
 
 @Component({
     // tslint:disable-next-line:component-selector
@@ -78,21 +80,19 @@ export class TeamsDropdownComponent extends SelectControlValueAccessor
     }
 
     // tslint:disable-next-line:variable-name
-    constructor(_renderer: Renderer2, _elementRef: ElementRef) {
+    constructor(
+        // tslint:disable-next-line:variable-name
+        _renderer: Renderer2,
+        // tslint:disable-next-line:variable-name
+        _elementRef: ElementRef,
+        private sharedService: SharedService
+    ) {
         super(_renderer, _elementRef);
     }
 
-    ngOnInit() {
-        this.progressMode = 'query';
-        // Call Service here
-        setTimeout(() => {
-            this.teams = [
-                'Team Badboys',
-                'Team two',
-                'Team three',
-                'Team four'
-            ];
-            this.progressMode = '';
-        }, 4000);
+    async ngOnInit() {
+        this.progressMode = 'query';    // Start progress bar
+        this.teams = await this.sharedService.getTeams(); // Call service to get the teams
+        this.progressMode = '';
     }
 }

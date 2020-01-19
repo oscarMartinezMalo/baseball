@@ -38,6 +38,8 @@ import { SigninComponent } from './modules/auth/signin/signin.component';
 import { SignupComponent } from './modules/auth/signup/signup.component';
 import { ProfileComponent } from './modules/auth/profile/profile.component';
 import { TeamsDropdownComponent } from './shared/components/teams-dropdown/teams-dropdown.component';
+import { SharedService } from './shared/shared.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
     declarations: [
@@ -70,6 +72,7 @@ import { TeamsDropdownComponent } from './shared/components/teams-dropdown/teams
         MatRadioModule,
         MatSnackBarModule,
         MatProgressBarModule,
+        HttpClientModule,
 
         AngularFireModule.initializeApp(environment.firebase),
         AngularFirestoreModule, // imports firebase/firestore, only needed for database features
@@ -80,7 +83,7 @@ import { TeamsDropdownComponent } from './shared/components/teams-dropdown/teams
         ReactiveFormsModule,
         FormsModule
     ],
-    providers: [AuthService],
+    providers: [SharedService, AuthService],
     bootstrap: [AppComponent]
 })
 export class AppModule {}

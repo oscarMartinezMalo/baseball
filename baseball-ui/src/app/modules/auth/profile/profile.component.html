@@ -19,11 +19,11 @@
                     </mat-form-field>
                 </div>
                 <div class="col">
-                    <teams-dropdown formControlName="team"></teams-dropdown>
-                    <!-- <div *ngIf="profileForm.controls['team'].status === 'INVALID' && (profileForm.controls['team'].dirty || profileForm.controls['team'].touched)"                     
-                        [ngClass]="{'alert-danger': (profileForm.controls['team'].dirty || profileForm.controls['team'].touched)}">
-                        <mat-error *ngIf="profileForm.controls['team'].errors.required">Team is <strong>required</strong> </mat-error>
-                    </div> -->
+                    <teams-dropdown *ngIf="!(profileForm.controls['roles'].value === 'coach')" formControlName="team"></teams-dropdown>
+                    
+                    <mat-form-field *ngIf="profileForm.controls['roles'].value === 'coach'" class="full-width" appearance="outline">
+                        <input matInput placeholder="Create Team" formControlName="team"/>
+                    </mat-form-field>                    
                 </div>
             </div>
             <div class="row">

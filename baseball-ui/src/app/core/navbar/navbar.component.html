@@ -19,7 +19,7 @@
   </div>
 
   <div fxLayout="row" fxLayoutAlign="end center" fxFlex="50%" fxLayoutGap="16px">
-    <ng-template [ngIf]='!(authService.user | async)' [ngIfElse]="logged">
+    <ng-template [ngIf]='!(authService.user | async) ' [ngIfElse]="logged">
       <button routerLinkActive="active" routerLink="/signin" (click)="drawerClose()" #rla="routerLinkActive" [ngClass]="rla.isActive?'mat-button':'mat-stroked-button'">
         Sign In
       </button>

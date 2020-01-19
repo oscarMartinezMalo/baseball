@@ -1,29 +1,29 @@
-import { Injectable } from "@angular/core";
-import { User } from "src/app/shared/models/user";
-import { Roles } from "src/app/shared/enums/roles.enum";
+import { Injectable } from '@angular/core';
+import { User } from 'src/app/shared/models/user';
+import { Roles } from 'src/app/shared/enums/roles.enum';
 
-import * as firebase from "firebase";
-import { AngularFireAuth } from "@angular/fire/auth";
+import * as firebase from 'firebase';
+import { AngularFireAuth } from '@angular/fire/auth';
 import {
     AngularFirestore,
     AngularFirestoreDocument
-} from "@angular/fire/firestore";
+} from '@angular/fire/firestore';
 
-import { Router } from "@angular/router";
+import { Router } from '@angular/router';
 
-import { Observable } from "rxjs";
-import { switchMap, take, map } from "rxjs/operators";
-import { of } from "rxjs";
-import { MatSnackBar } from "@angular/material/snack-bar";
-import * as _ from "lodash";
+import { Observable } from 'rxjs';
+import { switchMap, take, map } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import * as _ from 'lodash';
 
-import { HttpErrorResponse } from "@angular/common/http";
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
-    providedIn: "root"
+    providedIn: 'root'
 })
 export class AuthService {
-    BASE_URL = "http://localhost:4000/auth";
+    BASE_URL = 'http://localhost:4000/auth';
     userRoles: Array<Roles>;
     token: string;
     user: Observable<User>;
@@ -94,13 +94,13 @@ export class AuthService {
                 this.user.pipe(take(1)).subscribe(userData => {
                     // If User does have a role go to page to complete user information.
                     userData.roles.length
-                        ? this.router.navigate(["/home"])
-                        : this.router.navigate(["/profile"]);
+                        ? this.router.navigate(['/home'])
+                        : this.router.navigate(['/profile']);
                 });
             } else {
                 this.snackBar.open(
-                    "Please validate your email address. Check your inbox",
-                    "X",
+                    'Please validate your email address. Check your inbox',
+                    'X',
                     {
                         duration: 3000
                     }
@@ -129,13 +129,13 @@ export class AuthService {
         user.sendEmailVerification()
             .then(() => {
                 this.snackBar.open(
-                    "Email was sent to you, please confirm account and after that you can login",
-                    "X"
+                    'Email was sent to you, please confirm account and after that you can login',
+                    'X'
                 );
-                this.router.navigate(["/signin"]);
+                this.router.navigate(['/signin']);
             })
             .catch(error => {
-                this.snackBar.open(error.message, "X", { duration: 3000 });
+                this.snackBar.open(error.message, 'X', { duration: 3000 });
             });
     }
 
@@ -144,7 +144,7 @@ export class AuthService {
             .signOut()
             .then(() => {
                 this.token = null;
-                this.router.navigate(["/signin"]);
+                this.router.navigate(['/signin']);
             })
             .catch(error => {
                 this.snackBar.open(error.message, error.code, {
@@ -157,13 +157,13 @@ export class AuthService {
         this.afAuth.auth
             .sendPasswordResetEmail(passWordInfo)
             .then(() => {
-                this.snackBar.open("An email was sent to you", "X", {
+                this.snackBar.open('An email was sent to you', 'X', {
                     duration: 3000
                 });
-                this.router.navigate(["/signin"]);
+                this.router.navigate(['/signin']);
             })
             .catch(error => {
-                this.snackBar.open(error.message, "X", { duration: 3000 });
+                this.snackBar.open(error.message, 'X', { duration: 3000 });
             });
     }
     updateUserInfo(user: User) {}
