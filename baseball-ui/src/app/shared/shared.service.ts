@@ -13,24 +13,49 @@ export class SharedService {
         private http: HttpClient,
         private authService: AuthService,
         private afs: AngularFirestore
-    ) {}
+    ) { }
 
-    getTeams(): Promise<any> {
+    async getTeams(): Promise<string[]> {
+        const snapshot = await this.afs
+            .collection('users')
+            .ref.where('roles', '==', 'coach')
+            .get();
+
+        if (snapshot.empty) {
+            console.log('No matching documents.');
+            return;
+        }
+
+        const teamList = new Array<string>();
+        snapshot.forEach(doc => {
+            const oneTeam = doc.data().team;
+            if (oneTeam && oneTeam !== '') {
+                teamList.push(doc.data().team);
+            }
+        });
+
+        return teamList;
+    }
+
+    async getTeamsPromise(): Promise<any> {
         return this.afs
             .collection('users')
             .get()
-            .pipe(map(collection => {
-                if (collection && collection.size > 0) {
-                    const teamList = new Array<string>();
-                    collection.docs.forEach(doc => {
-                        const oneTeam = doc.data().team;
-                        if (oneTeam && oneTeam !== '') {
-                            teamList.push(doc.data().team);
-                        }
-                    });
-                    return teamList;
-                }
-                return of(null);
-            })).toPromise();
+            .pipe(
+                map(collection => {
+                    if (collection && collection.size > 0) {
+                        const teamList = new Array<string>();
+                        collection.docs.forEach(doc => {
+                            const oneTeam = doc.data().team;
+                            if (oneTeam && oneTeam !== '') {
+                                teamList.push(doc.data().team);
+                            }
+                        });
+                        return teamList;
+                    }
+                    return of(null);
+                })
+            )
+            .toPromise();
     }
 }

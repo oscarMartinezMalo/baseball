@@ -18,6 +18,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import * as _ from 'lodash';
 
 import { HttpErrorResponse } from '@angular/common/http';
+import { $ } from 'protractor';
 
 @Injectable({
     providedIn: 'root'
@@ -26,7 +27,7 @@ export class AuthService {
     BASE_URL = 'http://localhost:4000/auth';
     userRoles: Array<Roles>;
     token: string;
-    user: Observable<User>;
+    user: Observable<User> = of(null);
 
     constructor(
         private afAuth: AngularFireAuth,
@@ -34,21 +35,21 @@ export class AuthService {
         private router: Router,
         private snackBar: MatSnackBar
     ) {
-        this.user = this.afAuth.authState.pipe(
-            switchMap(user => {
-                if (user) {
-                    user.getIdToken().then((token: string) => {
-                        this.token = token;
-                    });
-                    return this.afs
-                        .doc<User>(`users/${user.uid}`)
-                        .valueChanges();
-                } else {
-                    this.token = null;
-                    return of(null);
-                }
-            })
-        );
+       this.user = this.afAuth.authState.pipe(
+           switchMap(user => {
+               if (user && user.emailVerified) {
+                   user.getIdToken().then((token: string) => {
+                       this.token = token;
+                   });
+                   return this.afs
+                       .doc<User>(`users/${user.uid}`)
+                       .valueChanges();
+               } else {
+                   this.token = null;
+                   return of(null);
+               }
+           })
+       );
     }
 
     get isAuthenticated(): boolean {
@@ -73,10 +74,10 @@ export class AuthService {
     }
 
     createUserData(userProfile: User) {
-        console.log(userProfile);
         this.user.pipe(take(1)).subscribe(user => {
-            console.log(user.uid);
-            const userRef: AngularFirestoreDocument<User> = this.afs.doc<User>(`users/${user.uid}`);
+            const userRef: AngularFirestoreDocument<User> = this.afs.doc<User>(
+                `users/${user.uid}`
+            );
             userRef.set(userProfile);
         });
     }
@@ -89,8 +90,7 @@ export class AuthService {
             );
 
             if (credential.user.emailVerified) {
-                // Email verification
-
+            // Email verification
                 this.user.pipe(take(1)).subscribe(userData => {
                     // If User does have a role go to page to complete user information.
                     userData.roles.length
@@ -118,6 +118,7 @@ export class AuthService {
                 password
             );
             await this.updateUserData(credential.user); // Add User to the Database
+
             this.sendVerificationEmail(); // Verfication email
         } catch (error) {
             this.snackBar.open(error.message, error.code, { duration: 3000 });

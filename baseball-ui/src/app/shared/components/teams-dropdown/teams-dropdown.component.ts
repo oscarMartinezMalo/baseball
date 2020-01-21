@@ -92,7 +92,8 @@ export class TeamsDropdownComponent extends SelectControlValueAccessor
 
     async ngOnInit() {
         this.progressMode = 'query';    // Start progress bar
-        this.teams = await this.sharedService.getTeams(); // Call service to get the teams
+        // this.teams = await this.sharedService.getTeamsPromise(); // Call service to get the teams
+        this.teams = await this.sharedService.getTeams();
         this.progressMode = '';
     }
 }
