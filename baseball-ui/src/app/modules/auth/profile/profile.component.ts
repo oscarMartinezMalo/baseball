@@ -79,6 +79,7 @@ export class ProfileComponent implements OnInit {
     }
 
     onSubmit() {
+        console.log(this.profileForm);
         // this.profileForm.get("team").markAsTouched();
         if (this.profileForm.valid) {
             // console.log(this.profileForm.value);

@@ -23,6 +23,15 @@
                     
                     <mat-form-field *ngIf="profileForm.controls['roles'].value === 'coach'" class="full-width" appearance="outline">
                         <input matInput placeholder="Create Team" formControlName="team"/>
+                        <mat-error
+                            *ngIf="
+                                profileForm.controls['team'].hasError(
+                                    'teamAlreadyTaken'
+                                )
+                            "
+                        >
+                            This team is already <strong>taken</strong>
+                        </mat-error>
                     </mat-form-field>                    
                 </div>
             </div>
