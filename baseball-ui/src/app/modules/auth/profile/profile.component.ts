@@ -45,7 +45,7 @@ export class ProfileComponent implements OnInit {
     createCoach(): FormGroup {
         return this.fb.group({
             roles: ["coach", Validators.required],
-            team: [null, Validators.required, this.TeamAlreadyTakenValidator],
+            team: [null, Validators.required, CustomValidator.TeamAlreadyTakenValidator(this.sharedService)],
             firstName: [null, Validators.required],
             lastName: [null, Validators.required],
             phone: [null, Validators.required]
@@ -88,16 +88,18 @@ export class ProfileComponent implements OnInit {
         }
     }
 
-    TeamAlreadyTakenValidator(
-        control: AbstractControl
-    ): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> {
-        console.log(control.value);
-        return this.sharedService.getTeams().then(teams => {
-            const newTeam = control.value;
-            const teamExist = (teams as string[]).includes(newTeam);
-            return teamExist
-                ? { teamAlreadyTaken: { value: control.value } }
-                : null;
-        });
+}
+
+class CustomValidator {
+    static TeamAlreadyTakenValidator(sharedService: SharedService) {
+        return (control: AbstractControl) => {
+            return sharedService.getTeams().then(teams => {
+                const newTeam = control.value;
+                const teamExist = (teams as string[]).includes(newTeam);
+                return teamExist
+                    ? { teamAlreadyTaken: { value: control.value } }
+                    : null;
+            });
+        };
     }
 }
