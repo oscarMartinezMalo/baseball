@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit } from '@angular/core';
 import {
     FormBuilder,
     Validators,
@@ -7,16 +7,16 @@ import {
     AbstractControl,
     Validator,
     ValidationErrors
-} from "@angular/forms";
-import { UserPlayer } from "src/app/shared/models/user-player";
-import { AuthService } from "../auth.service";
+} from '@angular/forms';
+import { UserPlayer } from 'src/app/shared/models/user-player';
+import { AuthService } from '../auth.service';
 import { Observable, of } from 'rxjs';
 import { SharedService } from 'src/app/shared/shared.service';
 
 @Component({
-    selector: "app-profile",
-    templateUrl: "./profile.component.html",
-    styleUrls: ["./profile.component.scss"]
+    selector: 'app-profile',
+    templateUrl: './profile.component.html',
+    styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
     profileForm: FormGroup;
@@ -33,18 +33,21 @@ export class ProfileComponent implements OnInit {
 
     createPlayer(): FormGroup {
         return this.fb.group({
-            roles: ["player", Validators.required],
+            roles: ['player', Validators.required],
             team: [null, Validators.required],
             firstName: [null, Validators.required],
             lastName: [null, Validators.required],
-            age: [null, Validators.required],
+            age: [
+                null,
+                [Validators.required, Validators.pattern('^([1-9][0-9]?|)$')]
+            ],
             phone: [null, Validators.required]
         });
     }
 
     createCoach(): FormGroup {
         return this.fb.group({
-            roles: ["coach", Validators.required],
+            roles: ['coach', Validators.required],
             team: [null, Validators.required, CustomValidator.TeamAlreadyTakenValidator(this.sharedService)],
             firstName: [null, Validators.required],
             lastName: [null, Validators.required],
@@ -54,7 +57,7 @@ export class ProfileComponent implements OnInit {
 
     createFan(): FormGroup {
         return this.fb.group({
-            roles: ["fan", Validators.required],
+            roles: ['fan', Validators.required],
             team: [null, Validators.required],
             firstName: [null, Validators.required],
             lastName: [null, Validators.required],
@@ -66,13 +69,13 @@ export class ProfileComponent implements OnInit {
     // Dropdown Role change
     onRoleChange($event) {
         switch ($event.value) {
-            case "player":
+            case 'player':
                 this.profileForm = this.createPlayer();
                 break;
-            case "coach":
+            case 'coach':
                 this.profileForm = this.createCoach();
                 break;
-            case "fan":
+            case 'fan':
                 this.profileForm = this.createFan();
                 break;
         }
@@ -96,10 +99,13 @@ class CustomValidator {
         return (control: AbstractControl) => {
             return sharedService.getTeams().then(teams => {
                 const newTeam = control.value;
+                if (teams){
                 const teamExist = (teams as string[]).includes(newTeam);
                 return teamExist
                     ? { teamAlreadyTaken: { value: control.value } }
                     : null;
+                }
+
             });
         };
     }
