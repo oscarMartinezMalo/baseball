@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../modules/auth/auth.service';
 import { switchMap, take, map } from 'rxjs/operators';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { of, Observable } from 'rxjs';
+import { of, Observable, Subject } from 'rxjs';
 
 @Injectable()
 export class SharedService {
@@ -13,7 +13,9 @@ export class SharedService {
         private http: HttpClient,
         private authService: AuthService,
         private afs: AngularFirestore
-    ) { }
+    ) {
+//
+     }
 
     async getTeams(): Promise<string[]> {
         const snapshot = await this.afs
@@ -29,7 +31,7 @@ export class SharedService {
         const teamList = new Array<string>();
         snapshot.forEach(doc => {
             const oneTeam = doc.data().team;
-            if (oneTeam && oneTeam !== '') {
+            if (oneTeam && oneTeam !== '' ) {
                 teamList.push(doc.data().team);
             }
         });
@@ -47,7 +49,11 @@ export class SharedService {
                         const teamList = new Array<string>();
                         collection.docs.forEach(doc => {
                             const oneTeam = doc.data().team;
-                            if (oneTeam && oneTeam !== '') {
+                            if (
+                                oneTeam &&
+                                oneTeam !== '' &&
+                                !teamList.includes(oneTeam)
+                            ) {
                                 teamList.push(doc.data().team);
                             }
                         });
