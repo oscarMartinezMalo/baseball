@@ -29,7 +29,7 @@ export class NavbarComponent {
   public async ngOnInit() {
     this.drawerClose();
     this.authService.user.subscribe(res => {
-        console.log('user', res);
+        // console.log('user', res);
     });
   }
 

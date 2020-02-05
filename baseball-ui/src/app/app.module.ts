@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavbarComponent } from './core/navbar/navbar.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { MatTableModule } from '@angular/material/table';
 
 import {
     MatListModule,
@@ -40,6 +41,7 @@ import { ProfileComponent } from './modules/auth/profile/profile.component';
 import { TeamsDropdownComponent } from './shared/components/teams-dropdown/teams-dropdown.component';
 import { SharedService } from './shared/shared.service';
 import { HttpClientModule } from '@angular/common/http';
+import { TeamListComponent } from './team/team-list/team-list.component';
 
 @NgModule({
     declarations: [
@@ -50,7 +52,8 @@ import { HttpClientModule } from '@angular/common/http';
         SigninComponent,
         SignupComponent,
         ProfileComponent,
-        TeamsDropdownComponent
+        TeamsDropdownComponent,
+        TeamListComponent
     ],
     imports: [
         BrowserModule,
@@ -72,6 +75,7 @@ import { HttpClientModule } from '@angular/common/http';
         MatRadioModule,
         MatSnackBarModule,
         MatProgressBarModule,
+        MatTableModule,
         HttpClientModule,
 
         AngularFireModule.initializeApp(environment.firebase),

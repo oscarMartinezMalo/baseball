@@ -35,27 +35,27 @@ export class AuthService {
         private router: Router,
         private snackBar: MatSnackBar
     ) {
-       this.user = this.afAuth.authState.pipe(
-           switchMap(user => {
-               if (user && user.emailVerified) {
-                   user.getIdToken().then((token: string) => {
-                       this.token = token;
-                   });
-                   return this.afs
-                       .doc<User>(`users/${user.uid}`)
-                       .valueChanges();
-               } else {
-                   this.token = null;
-                   return of(null);
-               }
-           })
-       );
+        this.user = this.afAuth.authState.pipe(
+            switchMap(user => {
+                if (user && user.emailVerified) {
+                    user.getIdToken().then((token: string) => {
+                        this.token = token;
+                    });
+                    return this.afs
+                        .doc<User>(`users/${user.uid}`)
+                        .valueChanges();
+                } else {
+                    this.token = null;
+                    return of(null);
+                }
+            })
+        );
     }
 
     get isAuthenticated(): boolean {
         return true;
     }
-    getUserInfo() {}
+    getUserInfo() { }
 
     // Update data from Google and emailPass SignIN and SignUP
     updateUserData(user: firebase.User) {
@@ -68,18 +68,16 @@ export class AuthService {
             email: user.email,
             photoUrl: user.photoURL,
             firstName: user.displayName,
-            roles: []
+            roles: [],
+            team: ''
         };
         return userRef.set(data);
     }
 
     createUserData(userProfile: User) {
-        this.user.pipe(take(1)).subscribe(user => {
-            const userRef: AngularFirestoreDocument<User> = this.afs.doc<User>(
-                `users/${user.uid}`
-            );
-            userRef.set(userProfile);
-        });
+        const user = this.afAuth.auth.currentUser;
+        const userRef: AngularFirestoreDocument<User> = this.afs.doc<User>(`users/${user.uid}`);
+        userRef.set(userProfile);
     }
 
     async logIn({ email, password }: { email: string; password: string }) {
@@ -90,7 +88,7 @@ export class AuthService {
             );
 
             if (credential.user.emailVerified) {
-            // Email verification
+                // Email verification
                 this.user.pipe(take(1)).subscribe(userData => {
                     // If User does have a role go to page to complete user information.
                     userData.roles.length
@@ -167,8 +165,8 @@ export class AuthService {
                 this.snackBar.open(error.message, 'X', { duration: 3000 });
             });
     }
-    updateUserInfo(user: User) {}
-    sendResetEmail(emailReset: any) {}
+    updateUserInfo(user: User) { }
+    sendResetEmail(emailReset: any) { }
 
     ///// Authorization Logic /////
     /// Helper to determine if any matching roles exist
@@ -192,5 +190,5 @@ export class AuthService {
         return this.checkRoleAuthorization(allowed);
     }
 
-    private handleMessages(error: HttpErrorResponse) {}
+    private handleMessages(error: HttpErrorResponse) { }
 }

@@ -6,4 +6,5 @@ export class User {
     photoUrl: string;
     firstName: string;
     roles: Roles[];
+    team: string;
 }

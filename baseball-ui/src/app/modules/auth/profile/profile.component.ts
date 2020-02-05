@@ -12,6 +12,7 @@ import { UserPlayer } from 'src/app/shared/models/user-player';
 import { AuthService } from '../auth.service';
 import { Observable, of } from 'rxjs';
 import { SharedService } from 'src/app/shared/shared.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-profile',
@@ -28,7 +29,8 @@ export class ProfileComponent implements OnInit {
     constructor(
         private fb: FormBuilder,
         private authService: AuthService,
-        private sharedService: SharedService
+        private sharedService: SharedService,
+        private router: Router
     ) {}
 
     createPlayer(): FormGroup {
@@ -82,13 +84,10 @@ export class ProfileComponent implements OnInit {
     }
 
     onSubmit() {
-        console.log(this.profileForm);
-        // this.profileForm.get("team").markAsTouched();
         if (this.profileForm.valid) {
-            // console.log(this.profileForm.value);
-
             // Check if the profile is a coach
             this.authService.createUserData(this.profileForm.value);
+            this.router.navigate(['/team-list']);
         }
     }
 
@@ -99,7 +98,7 @@ class CustomValidator {
         return (control: AbstractControl) => {
             return sharedService.getTeams().then(teams => {
                 const newTeam = control.value;
-                if (teams){
+                if (teams) {
                 const teamExist = (teams as string[]).includes(newTeam);
                 return teamExist
                     ? { teamAlreadyTaken: { value: control.value } }
