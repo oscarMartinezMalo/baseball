@@ -1,31 +1,31 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { User } from '../shared/models/user';
 import { AuthService } from '../modules/auth/auth.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { take, subscribeOn } from 'rxjs/operators';
+import { take, subscribeOn, map, switchMap } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
 export class TeamService {
 
-  public team = new Subject<User[]>();
-
   constructor(
     private auth: AuthService,
     private afs: AngularFirestore
-  ) {
+  ) {  }
+
+  getTeamMembers(): Observable<User[]> {
     // Get the teamMember from the current user team.
-    this.auth.user
-      .pipe(take(1))
-      .subscribe(async user => {
-        const teamList = await this.getTeamMembers(user.team);
-        this.team.next(teamList);
-      });
+   return this.auth.user
+      .pipe(take(1),
+      switchMap( async user => {
+       const members = await this.loadTeamMembers(user.team);
+       return members;
+      }));
   }
 
-  public async getTeamMembers(currentTeam: string) {
+  private async loadTeamMembers(currentTeam: string) {
     const teamList: User[] = [];
 
     const snapshot = await this.afs
@@ -38,5 +38,6 @@ export class TeamService {
     snapshot.forEach(doc => { teamList.push(doc.data() as User); });
     return teamList;
   }
+
 }
 

@@ -17,7 +17,7 @@ const routes: Routes = [
     path: 'home', component: HomeComponent, canActivate: [RolesGuard],
     data: {
       animation: 'isLeft',
-      expectedRole: [Roles.ADMIN, Roles.EDITOR]
+      expectedRole: [Roles.ADMIN, Roles.PLAYER]
     }
   },
   { path: 'signin', component: SigninComponent, data: { animation: 'isRight' } },

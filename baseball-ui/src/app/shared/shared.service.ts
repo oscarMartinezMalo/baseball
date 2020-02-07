@@ -17,7 +17,7 @@ export class SharedService {
 //
      }
 
-    async getTeams(): Promise<string[]> {
+    async getTeamsFromUsers(): Promise<string[]> {
         const snapshot = await this.afs
             .collection('users')
             .ref.where('roles', '==', 'coach')
@@ -33,6 +33,27 @@ export class SharedService {
             const oneTeam = doc.data().team;
             if (oneTeam && oneTeam !== '' ) {
                 teamList.push(doc.data().team);
+            }
+        });
+
+        return teamList;
+    }
+
+    async getTeams(): Promise<string[]> {
+        const snapshot = await this.afs
+            .collection('teams').ref.get();
+
+        if (snapshot.empty) {
+            console.log('No matching documents.');
+            return;
+        }
+
+        const teamList = new Array<string>();
+
+        snapshot.forEach(doc => {
+            const oneTeam = doc.data().name;
+            if (oneTeam && oneTeam !== '' ) {
+                teamList.push(oneTeam);
             }
         });
 

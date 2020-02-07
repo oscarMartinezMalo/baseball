@@ -12,16 +12,18 @@ import { take } from 'rxjs/operators';
 export class TeamListComponent implements OnInit {
 
   displayedColumns: string[] = ['firstName', 'lastName', 'age', 'phone'];
-  public dataSource = [];
+  public dataSource: User[] = [];
 
-  constructor( private team: TeamService) { }
+  constructor(private teamService: TeamService) { }
 
   ngOnInit() {
-    this.team.team.
-    pipe(take(1)).
-    subscribe(teamMembers => {
-      this.dataSource = teamMembers;
-    });
+    // Get the team members oof the current user
+    this.teamService.getTeamMembers()
+      .pipe(take(1))
+      .subscribe((teamMembers) => {
+        this.dataSource = teamMembers;
+      });
   }
 
 }
+

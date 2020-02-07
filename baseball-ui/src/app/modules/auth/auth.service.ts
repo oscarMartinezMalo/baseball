@@ -77,7 +77,25 @@ export class AuthService {
     createUserData(userProfile: User) {
         const user = this.afAuth.auth.currentUser;
         const userRef: AngularFirestoreDocument<User> = this.afs.doc<User>(`users/${user.uid}`);
-        userRef.set(userProfile);
+        userRef.set(userProfile).then(() => {
+            this.createNewTeam(userProfile);
+        });
+
+    }
+
+   private async createNewTeam(teamMember: User ) {
+       const teamName = teamMember.team;
+       if ( teamMember.roles.includes(Roles.COACH) ) {
+
+        const teamSameName =  await this.afs.collection('teams')
+        .ref.where('name', '==', teamName)
+        .get();
+
+        // Only add a new team if is a new Team;
+        if (teamSameName.docs.length === 0) {
+            this.afs.collection('teams').add({name: teamMember.team});
+        }
+       }
     }
 
     async logIn({ email, password }: { email: string; password: string }) {
@@ -176,17 +194,17 @@ export class AuthService {
     }
 
     get canRead(): boolean {
-        const allowed = [Roles.ADMIN, Roles.EDITOR, Roles.USER];
+        const allowed = [Roles.ADMIN, Roles.PLAYER, Roles.COACH];
         return this.checkRoleAuthorization(allowed);
     }
 
     get canEdit(): boolean {
-        const allowed = [Roles.ADMIN, Roles.EDITOR];
+        const allowed = [Roles.ADMIN, Roles.COACH];
         return this.checkRoleAuthorization(allowed);
     }
 
     get canDelete(): boolean {
-        const allowed = [Roles.USER];
+        const allowed = [Roles.PLAYER];
         return this.checkRoleAuthorization(allowed);
     }
 
