@@ -1,3 +1,30 @@
-table {
+  table {
+    align-content: center;
     width: 100%;
   }
+
+  tr:hover {
+    background-color: var(--secondary-light);
+    cursor: pointer;
+  }
+
+  tr.mat-row.ng-star-inserted.row-selected {
+    background-color: var(--secondary-soft);
+  }
+
+  th {
+    background-color: var(--secondary);
+    text-align: center !important;
+    font-size: medium;    
+    font-weight: 400;    
+    color: var(--primary-light);
+  }
+
+  td {
+    text-align: center !important;
+  }
+
+ .list-empty {
+   text-align: center;
+  color: var(--warn);
+ }

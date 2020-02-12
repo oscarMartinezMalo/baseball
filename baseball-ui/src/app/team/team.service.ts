@@ -10,19 +10,25 @@ import { take, subscribeOn, map, switchMap } from 'rxjs/operators';
 })
 export class TeamService {
 
+  private teamMembersList: User[] = [];
+  private teamMembersSubject = new Subject<User[]>();
+  teamMembersObservable: Observable<User[]>;
+
   constructor(
     private auth: AuthService,
     private afs: AngularFirestore
-  ) {  }
+  ) {
+    this.teamMembersObservable = this.teamMembersSubject as Observable<User[]>;
+  }
 
-  getTeamMembers(): Observable<User[]> {
+  getTeamMembers() {
     // Get the teamMember from the current user team.
-   return this.auth.user
-      .pipe(take(1),
-      switchMap( async user => {
-       const members = await this.loadTeamMembers(user.team);
-       return members;
-      }));
+    return this.auth.user
+      .pipe(take(1)).
+      subscribe(async user => {
+        this.teamMembersList = await this.loadTeamMembers(user.team);
+        this.teamMembersSubject.next(this.teamMembersList);
+      });
   }
 
   private async loadTeamMembers(currentTeam: string) {

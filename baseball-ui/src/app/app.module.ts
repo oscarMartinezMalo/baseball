@@ -42,6 +42,7 @@ import { TeamsDropdownComponent } from './shared/components/teams-dropdown/teams
 import { SharedService } from './shared/shared.service';
 import { HttpClientModule } from '@angular/common/http';
 import { TeamListComponent } from './team/team-list/team-list.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
     declarations: [
@@ -77,6 +78,7 @@ import { TeamListComponent } from './team/team-list/team-list.component';
         MatProgressBarModule,
         MatTableModule,
         HttpClientModule,
+        MatProgressSpinnerModule,
 
         AngularFireModule.initializeApp(environment.firebase),
         AngularFirestoreModule, // imports firebase/firestore, only needed for database features

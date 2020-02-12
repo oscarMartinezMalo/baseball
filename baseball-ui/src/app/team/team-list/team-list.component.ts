@@ -17,12 +17,11 @@ export class TeamListComponent implements OnInit {
   constructor(private teamService: TeamService) { }
 
   ngOnInit() {
-    // Get the team members oof the current user
-    this.teamService.getTeamMembers()
-      .pipe(take(1))
-      .subscribe((teamMembers) => {
-        this.dataSource = teamMembers;
-      });
+    // Call get the teamMembers and subscribe to the teamMembersObservable to update the list.
+    this.teamService.getTeamMembers();
+    this.teamService.teamMembersObservable.subscribe((teamMembersList) => {
+      this.dataSource = teamMembersList;
+    });
   }
 
 }

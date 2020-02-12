@@ -95,7 +95,7 @@ export class ProfileComponent implements OnInit {
 
 class CustomValidator {
     static TeamAlreadyTakenValidator(sharedService: SharedService) {
-        return (control: AbstractControl) => {
+        return (control: AbstractControl): Promise<ValidationErrors> | Observable<ValidationErrors> => {
             return sharedService.getTeams().then(teams => {
                 const newTeam = control.value;
                 if (teams) {
