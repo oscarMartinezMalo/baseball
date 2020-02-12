@@ -97,7 +97,7 @@ class CustomValidator {
     static TeamAlreadyTakenValidator(sharedService: SharedService) {
         return (control: AbstractControl): Promise<ValidationErrors> | Observable<ValidationErrors> => {
             return sharedService.getTeams().then(teams => {
-                const newTeam = control.value;
+                const newTeam = control.value.trim().replace(/\s+/g, ' '); // Remove extra espaces from the string
                 if (teams) {
                 const teamExist = (teams as string[]).includes(newTeam);
                 return teamExist

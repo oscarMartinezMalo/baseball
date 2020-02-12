@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { AppRoutingModule } from './app-routing.module';
@@ -42,7 +42,9 @@ import { TeamsDropdownComponent } from './shared/components/teams-dropdown/teams
 import { SharedService } from './shared/shared.service';
 import { HttpClientModule } from '@angular/common/http';
 import { TeamListComponent } from './team/team-list/team-list.component';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { AppErrorHandler } from './shared/errors/app-error-handler';
+import { InputFormatDirective } from './shared/directives/input-format.directive';
 
 @NgModule({
     declarations: [
@@ -54,7 +56,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
         SignupComponent,
         ProfileComponent,
         TeamsDropdownComponent,
-        TeamListComponent
+        TeamListComponent,
+        InputFormatDirective
     ],
     imports: [
         BrowserModule,
@@ -89,7 +92,11 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
         ReactiveFormsModule,
         FormsModule
     ],
-    providers: [SharedService, AuthService],
+    providers: [
+        SharedService,
+        AuthService,
+        { provide: ErrorHandler, useClass: AppErrorHandler}
+    ],
     bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

@@ -21,7 +21,7 @@
 
                     <mat-form-field *ngIf="profileForm.controls['roles'].value === 'coach'" class="full-width"
                         appearance="outline">
-                        <input matInput placeholder="Create Team" formControlName="team" #team [value]="team.value[0] ? team.value[0].toUpperCase(): team.value"/>
+                        <input matInput placeholder="Create Team" formControlName="team" appInputFormat/>
                         <mat-spinner matSuffix [diameter]='20'  *ngIf="profileForm.controls['team'].pending"></mat-spinner>
 
                         <mat-error *ngIf="profileForm.controls['team'].hasError('teamAlreadyTaken')">
