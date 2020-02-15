@@ -2,9 +2,8 @@
   width: 100%;
 }
 
-.shipping-card {
-  min-width: 120px;
-  margin: 20px auto;
+mat-card.custom-card.shipping-card.mat-card {
+  width: 600px !important;
 }
 
 .row {

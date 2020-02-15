@@ -1,12 +1,12 @@
-<form [formGroup]="profileForm" novalidate (ngSubmit)="onSubmit()">
-    <mat-card class="shipping-card">
+<form [formGroup]="profileForm" novalidate (ngSubmit)="onSubmit()" fxLayout="row" fxLayoutAlign="center center" >
+    <mat-card class="custom-card shipping-card">
         <mat-card-header>
             <mat-card-title>Create your Profile</mat-card-title>
         </mat-card-header>
         <mat-card-content>
-            <div class="row">
-                <div class="col">
-                    <mat-form-field class="full-width" appearance="outline">
+            <div fxLayout="row" fxLayout.lt-sm="column" fxFlex>
+
+                    <mat-form-field class="full-width" appearance="outline" fxFlex="50">
                         <mat-label>Select your Role *</mat-label>
                         <mat-select formControlName="roles" (selectionChange)="onRoleChange($event)">
                             <mat-option value="player">Player</mat-option>
@@ -14,13 +14,12 @@
                             <mat-option value="fan">Fan</mat-option>
                         </mat-select>
                     </mat-form-field>
-                </div>
-                <div class="col">
-                    <teams-dropdown *ngIf="!(profileForm.controls['roles'].value === 'coach')" formControlName="team">
+
+                    <teams-dropdown *ngIf="!(profileForm.controls['roles'].value === 'coach')" formControlName="team" fxFlex="50">
                     </teams-dropdown>
 
                     <mat-form-field *ngIf="profileForm.controls['roles'].value === 'coach'" class="full-width"
-                        appearance="outline">
+                        appearance="outline" fxFlex="50">
                         <input matInput placeholder="Create Team" formControlName="team" appInputFormat/>
                         <mat-spinner matSuffix [diameter]='20'  *ngIf="profileForm.controls['team'].pending"></mat-spinner>
 
@@ -34,11 +33,8 @@
                             Checking <strong>uniquiness</strong>
                         </div> -->        
                         <!-- {{profileForm.controls['team'].pending | json}} -->
-                    </mat-form-field>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
+                    </mat-form-field>             
+            
                     <mat-form-field class="full-width" appearance="outline">
                         <mat-label>First Name *</mat-label>
                         <input matInput placeholder="Your First Name" formControlName="firstName"  #firstName [value]="firstName.value[0] ? firstName.value[0].toUpperCase(): firstName.value" />
@@ -49,9 +45,8 @@
                             ">
                             First name is <strong>required</strong>
                         </mat-error>
-                    </mat-form-field>
-                </div>
-                <div class="col">
+                    </mat-form-field>                
+                
                     <mat-form-field class="full-width" appearance="outline">
                         <input matInput placeholder="Your Last Name" formControlName="lastName" #lastName [value]="lastName.value[0] ? lastName.value[0].toUpperCase(): lastName.value"/>
                         <mat-label>Last Name *</mat-label>
@@ -63,11 +58,8 @@
                             Last name is <strong>required</strong>
                         </mat-error>
                     </mat-form-field>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col" *ngIf="profileForm.controls['roles'].value === 'player'">
-                    <mat-form-field class="full-width" appearance="outline">
+
+                    <mat-form-field class="full-width" appearance="outline" class="col" *ngIf="profileForm.controls['roles'].value === 'player'">
                         <mat-label>Age *</mat-label>
                         <input matInput placeholder="Your Age" formControlName="age" />
                         <mat-error *ngIf="
@@ -81,8 +73,7 @@
                             Age range between <strong>1-99 years</strong>
                         </mat-error>
                     </mat-form-field>
-                </div>
-                <div class="col">
+
                     <mat-form-field class="full-width" appearance="outline">
                         <mat-label>Phone Number *</mat-label>
                         <input matInput placeholder="Your Phone" formControlName="phone" />
@@ -94,9 +85,8 @@
                             Phone is <strong>required</strong>
                         </mat-error>
                     </mat-form-field>
-                </div>
-                <div class="col" *ngIf="profileForm.controls['roles'].value === 'fan'">
-                    <mat-form-field class="full-width" appearance="outline">
+
+                    <mat-form-field class="full-width" appearance="outline"  *ngIf="profileForm.controls['roles'].value === 'fan'">
                         <mat-label>Select player to fallow *</mat-label>
                         <mat-select formControlName="fanOf" (selectionChange)="onRoleChange($event)">
                             <mat-option value="Luis Suarez">Luis Suarez</mat-option>
@@ -104,7 +94,7 @@
                             <mat-option value="Leonardo DaVinci">Leonardo DaVinci</mat-option>
                         </mat-select>
                     </mat-form-field>
-                </div>
+
             </div>
         </mat-card-content>
         <mat-card-actions>

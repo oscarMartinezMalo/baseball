@@ -9,6 +9,8 @@ import { NavbarComponent } from './core/navbar/navbar.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
+import { HttpClientModule } from '@angular/common/http';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import {
     MatListModule,
@@ -33,16 +35,18 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { environment } from 'src/environments/environment';
+
 import { AuthService } from './modules/auth/auth.service';
 import { SigninComponent } from './modules/auth/signin/signin.component';
 import { SignupComponent } from './modules/auth/signup/signup.component';
 import { ProfileComponent } from './modules/auth/profile/profile.component';
 import { TeamsDropdownComponent } from './shared/components/teams-dropdown/teams-dropdown.component';
 import { SharedService } from './shared/shared.service';
-import { HttpClientModule } from '@angular/common/http';
 import { TeamListComponent } from './team/team-list/team-list.component';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
+
 import { AppErrorHandler } from './shared/errors/app-error-handler';
 import { InputFormatDirective } from './shared/directives/input-format.directive';
 
@@ -87,7 +91,7 @@ import { InputFormatDirective } from './shared/directives/input-format.directive
         AngularFirestoreModule, // imports firebase/firestore, only needed for database features
         AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
         AngularFireStorageModule, // imports firebase/storage only needed for storage features
-        // AngularFireDatabaseModule,
+        AngularFireDatabaseModule,
 
         ReactiveFormsModule,
         FormsModule

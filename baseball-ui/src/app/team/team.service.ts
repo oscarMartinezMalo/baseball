@@ -8,7 +8,6 @@ import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { AppError } from '../shared/errors/app-error';
 import { NotFoundError } from '../shared/errors/not-found-error';
-import { promise } from 'protractor';
 import { BadInput } from '../shared/errors/bad-input';
 
 @Injectable({
@@ -39,22 +38,22 @@ export class TeamService {
 
   async loadTeamMembers(currentTeam: string) {
     const teamList: User[] = [];
+    let snapshot;
 
-    const snapshot = await this.afs
+    try {
+      snapshot = await this.afs
       .collection('users')
       .ref.where('team', '==', currentTeam)
       .where('roles', '==', 'player')
       .get();
+    } catch (handleError) {}
 
     if (snapshot.empty) { return teamList; }
     snapshot.forEach(doc => { teamList.push(doc.data() as User); });
     return teamList;
   }
 
-  deleteTeamMember(id: string) {
-    return of('154').
-    pipe(catchError(this.handleError));
-  }
+
 
   private handleError( error: Response) {
     if ( error.status === 404 ) {

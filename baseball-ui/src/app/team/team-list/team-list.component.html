@@ -1,6 +1,6 @@
 <div *ngIf="dataSource.length > 0; then playersList else noPlayers"></div>
 
-<ng-template #playersList>
+<ng-template #playersList @fade>
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
     <!-- Position Column -->
     <ng-container matColumnDef="firstName">

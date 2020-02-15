@@ -1,15 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { TeamService } from '../team.service';
 import { User } from 'src/app/shared/models/user';
-import { DataSource } from '@angular/cdk/table';
-import { take } from 'rxjs/operators';
-import { AppError } from 'src/app/shared/errors/app-error';
-import { NotFoundError } from 'src/app/shared/errors/not-found-error';
+// import { DataSource } from '@angular/cdk/table';
+// import { take } from 'rxjs/operators';
+// import { AppError } from 'src/app/shared/errors/app-error';
+// import { NotFoundError } from 'src/app/shared/errors/not-found-error';
+import { trigger, transition, state, style, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-team-list',
   templateUrl: './team-list.component.html',
-  styleUrls: ['./team-list.component.scss']
+  styleUrls: ['./team-list.component.scss'],
+  animations: [
+    trigger('fade', [
+      transition('void => *', [
+        style({ backgroundColor: 'yellow', opacity: 0}),
+        animate( 2000, style({ backgroundColor: 'white', opacity: 1}))
+      ])
+    ])
+  ]
 })
 export class TeamListComponent implements OnInit {
 
@@ -25,21 +34,7 @@ export class TeamListComponent implements OnInit {
     this.teamService.teamMembersObservable.subscribe((teamMembersList) => {
       this.dataSource = teamMembersList;
     });
-  }
 
-  deleteTeamMember() {
-    this.teamService.deleteTeamMember('Juan')
-      .subscribe(() => {
-        // do Something with the list
-      },
-        (error: AppError) => {
-          if (error instanceof NotFoundError) {
-            alert('This post has been already deleted.');
-          } else {
-            throw error;
-          }
-        });
   }
-
 }
 
