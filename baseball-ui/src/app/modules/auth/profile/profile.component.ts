@@ -22,7 +22,7 @@ import { Router } from '@angular/router';
 export class ProfileComponent implements OnInit {
     profileForm: FormGroup;
 
-     ngOnInit() {
+    ngOnInit() {
         this.profileForm = this.createPlayer();
     }
 
@@ -31,7 +31,7 @@ export class ProfileComponent implements OnInit {
         private authService: AuthService,
         private sharedService: SharedService,
         private router: Router
-    ) {}
+    ) { }
 
     createPlayer(): FormGroup {
         return this.fb.group({
@@ -99,10 +99,10 @@ class CustomValidator {
             return sharedService.getTeams().then(teams => {
                 const newTeam = control.value.trim().replace(/\s+/g, ' '); // Remove extra espaces from the string
                 if (teams) {
-                const teamExist = (teams as string[]).includes(newTeam);
-                return teamExist
-                    ? { teamAlreadyTaken: { value: control.value } }
-                    : null;
+                    const teamExist = (teams as string[]).includes(newTeam);
+                    return teamExist
+                        ? { teamAlreadyTaken: { value: control.value } }
+                        : null;
                 }
 
             });

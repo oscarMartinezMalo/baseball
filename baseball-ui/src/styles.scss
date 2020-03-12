@@ -1,29 +1,46 @@
+@import 'https://fonts.googleapis.com/icon?family=Material+Icons';
+@import 'https://fonts.googleapis.com/css?family=Open+Sans';
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
 
-:root { 
-    --primary: #4155B0;
-    --primary-light: white;
-    --secondary: #4e71b1;
-    --secondary-soft: #93a4c5;
-    --secondary-light: #c8d6f3;
-    --accent: #fcf071 ;
-    --warn: rgb(160, 36, 56);
-    --success: rgb(34, 90, 34);
-  }
+// :root {
+//     --primary: #4155B0;
+//     --primary-light: white;
+//     --secondary: #4e71b1;
+//     --secondary-soft: #93a4c5;
+//     --secondary-light: #c8d6f3;
+//     --accent: #fcf071 ;
+//     --warn: rgb(160, 36, 56);
+//     --success: rgb(34, 90, 34);
+//   }
 
-.material-icons.md-18 { font-size: 18px; }
-.material-icons.md-24 { font-size: 24px; }
-.material-icons.md-36 { font-size: 36px; }
-.material-icons.md-48 { font-size: 48px; }
+.material-icons.md-18 {
+  font-size: 18px;
+}
+.material-icons.md-24 {
+  font-size: 24px;
+}
+.material-icons.md-36 {
+  font-size: 36px;
+}
+.material-icons.md-48 {
+  font-size: 48px;
+}
 
-.material-icons.md-dark { color: var(--primary); }
-.material-icons.md-dark.md-inactive { color: var(--secondary); }
-.material-icons.md-light { color: var(--secondary-soft); }
-.material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); }
-
+// .material-icons.md-dark { color: var(--primary); }
+// .material-icons.md-dark.md-inactive { color: var(--secondary); }
+// .material-icons.md-light { color: var(--secondary-soft); }
+// .material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); }
 
 // Router outlet heigt 100%
 .ng-tns-c0-0.ng-trigger.ng-trigger-routeAnimations {

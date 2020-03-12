@@ -14,8 +14,8 @@ export class SharedService {
         private authService: AuthService,
         private afs: AngularFirestore
     ) {
-//
-     }
+        //
+    }
 
     async getTeamsFromUsers(): Promise<string[]> {
         const snapshot = await this.afs
@@ -31,7 +31,7 @@ export class SharedService {
         const teamList = new Array<string>();
         snapshot.forEach(doc => {
             const oneTeam = doc.data().team;
-            if (oneTeam && oneTeam !== '' ) {
+            if (oneTeam && oneTeam !== '') {
                 teamList.push(doc.data().team);
             }
         });
@@ -52,7 +52,7 @@ export class SharedService {
 
         snapshot.forEach(doc => {
             const oneTeam = doc.data().name;
-            if (oneTeam && oneTeam !== '' ) {
+            if (oneTeam && oneTeam !== '') {
                 teamList.push(oneTeam);
             }
         });

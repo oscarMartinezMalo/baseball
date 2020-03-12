@@ -9,7 +9,7 @@ import {
     AngularFirestoreDocument
 } from '@angular/fire/firestore';
 
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { Observable } from 'rxjs';
 import { switchMap, take, map } from 'rxjs/operators';
@@ -18,7 +18,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import * as _ from 'lodash';
 
 import { HttpErrorResponse } from '@angular/common/http';
-import { $ } from 'protractor';
 
 @Injectable({
     providedIn: 'root'
@@ -27,15 +26,16 @@ export class AuthService {
     BASE_URL = 'http://localhost:4000/auth';
     userRoles: Array<Roles>;
     token: string;
-    user: Observable<User> = of(null);
+    user$: Observable<User> = of(null);
 
     constructor(
         private afAuth: AngularFireAuth,
         private afs: AngularFirestore,
         private router: Router,
+        private route: ActivatedRoute,
         private snackBar: MatSnackBar
     ) {
-        this.user = this.afAuth.authState.pipe(
+        this.user$ = this.afAuth.authState.pipe(
             switchMap(user => {
                 if (user && user.emailVerified) {
                     user.getIdToken().then((token: string) => {
@@ -76,29 +76,33 @@ export class AuthService {
 
     createUserData(userProfile: User) {
         const user = this.afAuth.auth.currentUser;
-        const userRef: AngularFirestoreDocument<User> = this.afs.doc<User>(`users/${user.uid}`);
+        const userRef: AngularFirestoreDocument<User> = this.afs.doc<User>(
+            `users/${user.uid}`
+        );
         userRef.set(userProfile).then(() => {
             this.createNewTeam(userProfile);
         });
-
     }
 
-   private async createNewTeam(teamMember: User ) {
-       const teamName = teamMember.team;
-       if ( teamMember.roles.includes(Roles.COACH) ) {
+    private async createNewTeam(teamMember: User) {
+        const teamName = teamMember.team;
+        if (teamMember.roles.includes(Roles.COACH)) {
+            const teamSameName = await this.afs
+                .collection('teams')
+                .ref.where('name', '==', teamName)
+                .get();
 
-        const teamSameName =  await this.afs.collection('teams')
-        .ref.where('name', '==', teamName)
-        .get();
-
-        // Only add a new team if is a new Team;
-        if (teamSameName.docs.length === 0) {
-            this.afs.collection('teams').add({name: teamMember.team});
+            // Only add a new team if is a new Team;
+            if (teamSameName.docs.length === 0) {
+                this.afs.collection('teams').add({ name: teamMember.team });
+            }
         }
-       }
     }
 
     async logIn({ email, password }: { email: string; password: string }) {
+        // Get the url that the user wanted, but couldn't go because it have to login first
+        const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/';
+
         try {
             const credential = await this.afAuth.auth.signInWithEmailAndPassword(
                 email,
@@ -107,10 +111,10 @@ export class AuthService {
 
             if (credential.user.emailVerified) {
                 // Email verification
-                this.user.pipe(take(1)).subscribe(userData => {
+                this.user$.pipe(take(1)).subscribe(userData => {
                     // If User does have a role go to page to complete user information.
                     userData.roles.length
-                        ? this.router.navigate(['/home'])
+                        ? this.router.navigate([returnUrl])
                         : this.router.navigate(['/profile']);
                 });
             } else {

@@ -5,22 +5,22 @@ import {
     Renderer2,
     ElementRef,
     Input
-} from "@angular/core";
+} from '@angular/core';
 import {
     NG_VALUE_ACCESSOR,
     SelectControlValueAccessor,
     Validator,
     FormControl,
     NG_VALIDATORS
-} from "@angular/forms";
-import { SharedService } from "../../shared.service";
-import { take } from "rxjs/operators";
+} from '@angular/forms';
+import { SharedService } from '../../shared.service';
+import { take } from 'rxjs/operators';
 
 @Component({
     // tslint:disable-next-line:component-selector
-    selector: "teams-dropdown",
-    templateUrl: "./teams-dropdown.component.html",
-    styleUrls: ["./teams-dropdown.component.scss"],
+    selector: 'teams-dropdown',
+    templateUrl: './teams-dropdown.component.html',
+    styleUrls: ['./teams-dropdown.component.scss'],
     providers: [
         {
             provide: NG_VALUE_ACCESSOR,
@@ -40,7 +40,7 @@ export class TeamsDropdownComponent extends SelectControlValueAccessor
     value: string;
     disabled: boolean;
     teams: string[];
-    public progressMode = "";
+    showProgressbar = false;
 
     onChange: (_: any) => void;
     onTouched: () => void;
@@ -69,7 +69,7 @@ export class TeamsDropdownComponent extends SelectControlValueAccessor
 
     validate(control: FormControl): any {
         if (control) {
-            if (control.hasError("required")) {
+            if (control.hasError('required')) {
                 this.required = true;
                 // return { required: true };
             } else {
@@ -81,9 +81,9 @@ export class TeamsDropdownComponent extends SelectControlValueAccessor
 
     // tslint:disable-next-line:variable-name
     constructor(
-        // tslint:disable-next-line:variable-name
+        // tslint:disable-next-line: variable-name
         _renderer: Renderer2,
-        // tslint:disable-next-line:variable-name
+        // tslint:disable-next-line: variable-name
         _elementRef: ElementRef,
         private sharedService: SharedService
     ) {
@@ -91,9 +91,8 @@ export class TeamsDropdownComponent extends SelectControlValueAccessor
     }
 
     async ngOnInit() {
-        this.progressMode = "query"; // Start progress bar
+        this.showProgressbar = true; // Start progress bar
         this.teams = await this.sharedService.getTeamsPromise(); // Call service to get the teams
-        // this.teams = await this.sharedService.getTeams();
-        this.progressMode = '';
+        this.showProgressbar = false;
     }
 }

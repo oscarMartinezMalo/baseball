@@ -1,32 +1,34 @@
+@import "~@angular/material/_theming";
+
 .full-width {
-  width: 100%;
+    width: 100%;
 }
 
 mat-card.custom-card.shipping-card.mat-card {
-  width: 600px !important;
+    width: 600px !important;
 }
 
 .row {
-  display: flex;
-  flex-direction: row;
+    display: flex;
+    flex-direction: row;
 }
 
 .col {
-  flex: 1;
-  margin-right: 20px;
+    flex: 1;
+    margin-right: 20px;
 }
 
 .col:last-child {
-  margin-right: 0;
+    margin-right: 0;
 }
 
 .alert-danger {
-  position: relative;
-  top: -16px;
-  left:10px;
-  font-size: 75%;
+    position: relative;
+    top: -16px;
+    left: 10px;
+    font-size: 75%;
 
-  mat-error {
-    position: absolute;
-  }
+    mat-error {
+        position: absolute;
+    }
 }

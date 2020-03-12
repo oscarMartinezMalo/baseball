@@ -6,38 +6,37 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { AuthService } from 'src/app/modules/auth/auth.service';
 
 @Component({
-  selector: 'app-navbar',
-  templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss'],
-  encapsulation: ViewEncapsulation.None
+    selector: 'app-navbar',
+    templateUrl: './navbar.component.html',
+    styleUrls: ['./navbar.component.scss'],
+    encapsulation: ViewEncapsulation.None
 })
 export class NavbarComponent {
-  @ViewChild('drawer', { static: true }) public drawer: MatSidenav;
+    @ViewChild('drawer', { static: true }) public drawer: MatSidenav;
 
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe([Breakpoints.Handset, Breakpoints.Small])
-    .pipe(
-      map(result => result.matches)
-    );
-  afAuth: any;
+    isHandset$: Observable<boolean> = this.breakpointObserver
+        .observe([Breakpoints.Handset, Breakpoints.Small])
+        .pipe(map(result => result.matches));
+    afAuth: any;
 
-  constructor(
-    private breakpointObserver: BreakpointObserver,
-    public authService: AuthService
-  ) { }
+    constructor(
+        private breakpointObserver: BreakpointObserver,
+        public authService: AuthService
+    ) { }
 
-  // tslint:disable-next-line: use-lifecycle-interface
-  public async ngOnInit() {
-    this.drawerClose();
-    this.authService.user.subscribe(res => {
-        // console.log('user', res);
-    });
-  }
+    // tslint:disable-next-line: use-lifecycle-interface
+    public async ngOnInit() {
+        this.drawerClose();
+        this.authService.user$.subscribe(res => {
+            console.log('user', res);
+        });
+    }
 
-  public drawerClose(): void {
-    this.isHandset$.subscribe((isHandset) => {
-      if (isHandset) {
-        this.drawer.toggle(false);
-      }
-    });
-  }
+    public drawerClose(): void {
+        this.isHandset$.subscribe(isHandset => {
+            if (isHandset) {
+                this.drawer.toggle(false);
+            }
+        });
+    }
 }
