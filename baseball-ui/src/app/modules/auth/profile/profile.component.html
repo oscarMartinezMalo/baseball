@@ -1,80 +1,42 @@
-<form
-    [formGroup]="profileForm"
-    novalidate
-    (ngSubmit)="onSubmit()"
-    fxLayout="row"
-    fxLayoutAlign="center center"
->
-    <mat-card
-        class="custom-card shipping-card"
-        fxLayout="column"
-        fxLayoutGap="10px"
-    >
+<form [formGroup]="profileForm" novalidate (ngSubmit)="onSubmit()" fxLayout="row" fxLayoutAlign="center center">
+    <mat-card class="custom-card shipping-card" fxLayout="column" fxLayoutGap="10px">
+        <mat-toolbar color="primary">
+            <span>CREATE YOUR PROFILE</span>
+        </mat-toolbar>
         <mat-card-header color="primary" fxLayoutAlign="center center">
-            <mat-card-title>CREATE YOUR PROFILE</mat-card-title>
+            <!-- <mat-card-title>CREATE YOUR PROFILE</mat-card-title> -->
+
         </mat-card-header>
         <mat-card-content style="padding-left: 10px;">
-            <div
-                fxLayout="row wrap"
-                fxLayoutAlign="space-between center"
-                fxLayoutGap="10px"
-            >
-                <mat-form-field
-                    appearance="outline"
-                    fxFlex="48"
-                    fxFlex.xs="100"
-                >
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center" fxLayoutGap="10px">
+                <mat-form-field appearance="outline" fxFlex="48" fxFlex.xs="100">
                     <mat-label>Select your Role *</mat-label>
-                    <mat-select
-                        formControlName="roles"
-                        (selectionChange)="onRoleChange($event)"
-                    >
+                    <mat-select formControlName="roles" (selectionChange)="onRoleChange($event)">
                         <mat-option value="player">Player</mat-option>
                         <mat-option value="coach">Coach</mat-option>
                         <mat-option value="fan">Fan</mat-option>
                     </mat-select>
                 </mat-form-field>
 
-                <teams-dropdown
-                    *ngIf="!(profileForm.controls['roles'].value === 'coach')"
-                    formControlName="team"
-                    fxFlex="48"
-                    fxFlex.xs="100"
-                >
+                <teams-dropdown *ngIf="!(profileForm.controls['roles'].value === 'coach')" formControlName="team"
+                    fxFlex="48" fxFlex.xs="100">
                 </teams-dropdown>
 
-                <mat-form-field
-                    *ngIf="profileForm.controls['roles'].value === 'coach'"
-                    appearance="outline"
-                    fxFlex="48"
-                    fxFlex.xs="100"
-                >
-                    <input
-                        matInput
-                        placeholder="Create Team"
-                        formControlName="team"
-                        appInputFormat
-                    />
-                    <mat-spinner
-                        matSuffix
-                        [diameter]="20"
-                        *ngIf="profileForm.controls['team'].pending"
-                    ></mat-spinner>
+                <mat-form-field *ngIf="profileForm.controls['roles'].value === 'coach'" appearance="outline" fxFlex="48"
+                    fxFlex.xs="100">
+                    <input matInput placeholder="Create Team" formControlName="team" appInputFormat />
+                    <mat-spinner matSuffix [diameter]="20" *ngIf="profileForm.controls['team'].pending"></mat-spinner>
 
-                    <mat-error
-                        *ngIf="
+                    <mat-error *ngIf="
                             profileForm.controls['team'].hasError(
                                 'teamAlreadyTaken'
                             )
-                        "
-                    >
+                        ">
                         This team is already <strong>taken</strong>
                     </mat-error>
-                    <mat-error
-                        *ngIf="
+                    <mat-error *ngIf="
                             profileForm.controls['team'].hasError('required')
-                        "
-                    >
+                        ">
                         Team is <strong>required</strong>
                     </mat-error>
                     <!-- <div *ngIf="profileForm.controls['team'].pending">
@@ -83,124 +45,67 @@
                     <!-- {{profileForm.controls['team'].pending | json}} -->
                 </mat-form-field>
 
-                <mat-form-field
-                    appearance="outline"
-                    fxFlex="48"
-                    fxFlex.xs="100"
-                >
+                <mat-form-field appearance="outline" fxFlex="48" fxFlex.xs="100">
                     <mat-label>First Name *</mat-label>
-                    <input
-                        matInput
-                        placeholder="Your First Name"
-                        formControlName="firstName"
-                        #firstName
-                        [value]="
+                    <input matInput placeholder="Your First Name" formControlName="firstName" #firstName [value]="
                             firstName.value[0]
                                 ? firstName.value[0].toUpperCase()
                                 : firstName.value
-                        "
-                    />
-                    <mat-error
-                        *ngIf="
+                        " />
+                    <mat-error *ngIf="
                             profileForm.controls['firstName'].hasError(
                                 'required'
                             )
-                        "
-                    >
+                        ">
                         First name is <strong>required</strong>
                     </mat-error>
                 </mat-form-field>
 
-                <mat-form-field
-                    appearance="outline"
-                    fxFlex="48"
-                    fxFlex.xs="100"
-                >
-                    <input
-                        matInput
-                        placeholder="Your Last Name"
-                        formControlName="lastName"
-                        #lastName
-                        [value]="
+                <mat-form-field appearance="outline" fxFlex="48" fxFlex.xs="100">
+                    <input matInput placeholder="Your Last Name" formControlName="lastName" #lastName [value]="
                             lastName.value[0]
                                 ? lastName.value[0].toUpperCase()
                                 : lastName.value
-                        "
-                    />
+                        " />
                     <mat-label>Last Name *</mat-label>
-                    <mat-error
-                        *ngIf="
+                    <mat-error *ngIf="
                             profileForm.controls['lastName'].hasError(
                                 'required'
                             )
-                        "
-                    >
+                        ">
                         Last name is <strong>required</strong>
                     </mat-error>
                 </mat-form-field>
 
-                <mat-form-field
-                    appearance="outline"
-                    *ngIf="profileForm.controls['roles'].value === 'player'"
-                    fxFlex="48"
-                    fxFlex.xs="100"
-                >
+                <mat-form-field appearance="outline" *ngIf="profileForm.controls['roles'].value === 'player'"
+                    fxFlex="48" fxFlex.xs="100">
                     <mat-label>Age *</mat-label>
-                    <input
-                        matInput
-                        placeholder="Your Age"
-                        formControlName="age"
-                    />
-                    <mat-error
-                        *ngIf="profileForm.controls['age'].hasError('required')"
-                    >
+                    <input matInput placeholder="Your Age" formControlName="age" />
+                    <mat-error *ngIf="profileForm.controls['age'].hasError('required')">
                         Age is <strong>required</strong>
                     </mat-error>
-                    <mat-error
-                        *ngIf="profileForm.controls['age'].hasError('pattern')"
-                    >
+                    <mat-error *ngIf="profileForm.controls['age'].hasError('pattern')">
                         Age range between <strong>1-99 years</strong>
                     </mat-error>
                 </mat-form-field>
 
-                <mat-form-field
-                    appearance="outline"
-                    fxFlex="48"
-                    fxFlex.xs="100"
-                >
+                <mat-form-field appearance="outline" fxFlex="48" fxFlex.xs="100">
                     <mat-label>Phone Number *</mat-label>
-                    <input
-                        matInput
-                        placeholder="Your Phone"
-                        formControlName="phone"
-                    />
-                    <mat-error
-                        *ngIf="
+                    <input matInput placeholder="Your Phone" formControlName="phone" />
+                    <mat-error *ngIf="
                             profileForm.controls['phone'].hasError('required')
-                        "
-                    >
+                        ">
                         Phone is <strong>required</strong>
                     </mat-error>
                 </mat-form-field>
 
-                <mat-form-field
-                    appearance="outline"
-                    *ngIf="profileForm.controls['roles'].value === 'fan'"
-                    fxFlex="48"
-                    fxFlex.xs="100"
-                >
+                <mat-form-field appearance="outline" *ngIf="profileForm.controls['roles'].value === 'fan'" fxFlex="48"
+                    fxFlex.xs="100">
                     <mat-label>Select player to follow *</mat-label>
-                    <mat-select
-                        formControlName="fanOf"
-                        (selectionChange)="onRoleChange($event)"
-                    >
+                    <mat-select formControlName="fanOf" (selectionChange)="onRoleChange($event)">
                         <mat-option value="Luis Suarez">Luis Suarez</mat-option>
-                        <mat-option value="Leonel Messi"
-                            >Leonel Messi</mat-option
-                        >
-                        <mat-option value="Leonardo DaVinci"
-                            >Leonardo DaVinci</mat-option
-                        >
+                        <mat-option value="Leonel Messi">Leonel Messi</mat-option>
+                        <mat-option value="Leonardo DaVinci">Leonardo DaVinci</mat-option>
                     </mat-select>
                 </mat-form-field>
                 <!-- This this is to resolve the problem of the gap -->
@@ -208,12 +113,7 @@
             </div>
         </mat-card-content>
         <mat-card-actions style="padding: 0px;">
-            <button
-                mat-raised-button
-                color="primary"
-                type="submit"
-                class="full-width"
-            >
+            <button mat-raised-button color="primary" type="submit" class="full-width">
                 Submit
             </button>
         </mat-card-actions>

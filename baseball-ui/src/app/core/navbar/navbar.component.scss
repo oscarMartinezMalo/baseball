@@ -76,3 +76,7 @@ button.ng-star-inserted.mat-stroked-button {
     // background: var(--primary);
     color: white;
 }
+
+.mat-stroked-button:not([disabled]) {
+    border: 2px solid white;
+}

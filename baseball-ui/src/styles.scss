@@ -12,7 +12,10 @@ body {
   margin: 0;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
-
+:root {
+    --primary: #006065;
+    --accent: #424242;
+}
 // :root {
 //     --primary: #4155B0;
 //     --primary-light: white;
@@ -23,6 +26,10 @@ body {
 //     --warn: rgb(160, 36, 56);
 //     --success: rgb(34, 90, 34);
 //   }
+
+.ng-trigger.ng-trigger-routeAnimations {
+    height: 100%;
+}
 
 .material-icons.md-18 {
   font-size: 18px;
@@ -36,11 +43,6 @@ body {
 .material-icons.md-48 {
   font-size: 48px;
 }
-
-// .material-icons.md-dark { color: var(--primary); }
-// .material-icons.md-dark.md-inactive { color: var(--secondary); }
-// .material-icons.md-light { color: var(--secondary-soft); }
-// .material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); }
 
 // Router outlet heigt 100%
 .ng-tns-c0-0.ng-trigger.ng-trigger-routeAnimations {
@@ -63,4 +65,22 @@ mat-card {
   .mat-card-actions {
     margin: 0px !important;
   }
+
+  & h1{
+    color: var(--primary);
+  }
+
+}
+
+router-outlet.ng-tns-c286-0 {
+    height: 100%;
+}
+
+button.mat-raised-button.mat-button-base.mat-primary {
+    width: 100%;
+    border-radius: 20px;
+}
+
+mat-card-title.mat-card-title {
+  color: var(--primary);
 }

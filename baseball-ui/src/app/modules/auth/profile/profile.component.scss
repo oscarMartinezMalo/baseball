@@ -32,3 +32,9 @@ mat-card.custom-card.shipping-card.mat-card {
         position: absolute;
     }
 }
+
+.mat-toolbar {
+    display: flex;
+    justify-content: center;
+    border-radius: 10px 10px 0px 0px;
+}

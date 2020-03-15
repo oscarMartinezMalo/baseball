@@ -34,6 +34,7 @@ import { TeamListComponent } from "./team/team-list/team-list.component";
 import { AppErrorHandler } from "./shared/errors/app-error-handler";
 import { InputFormatDirective } from "./shared/directives/input-format.directive";
 import { TestComponent } from "./test/test.component";
+import { SvgBaseballGuyComponent } from './shared/components/svg-baseball-guy/svg-baseball-guy.component';
 
 @NgModule({
     declarations: [
@@ -47,7 +48,8 @@ import { TestComponent } from "./test/test.component";
         TeamsDropdownComponent,
         TeamListComponent,
         InputFormatDirective,
-        TestComponent
+        TestComponent,
+        SvgBaseballGuyComponent
     ],
     imports: [
         BrowserModule,

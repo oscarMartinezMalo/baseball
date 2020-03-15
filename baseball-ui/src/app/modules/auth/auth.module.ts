@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UpdateUserComponent } from './update-user/update-user.component';
 import { ForgotPassComponent } from './forgot-pass/forgot-pass.component';
@@ -34,6 +34,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
         ReactiveFormsModule,
         FormsModule,
         MatProgressBarModule
-    ]
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AuthModule {}

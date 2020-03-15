@@ -22,14 +22,15 @@ export class NavbarComponent {
     constructor(
         private breakpointObserver: BreakpointObserver,
         public authService: AuthService
-    ) { }
+    ) {
+        this.authService.user$.subscribe(mes => {
+            console.log(mes);
+        });
+    }
 
     // tslint:disable-next-line: use-lifecycle-interface
     public async ngOnInit() {
         this.drawerClose();
-        this.authService.user$.subscribe(res => {
-            console.log('user', res);
-        });
     }
 
     public drawerClose(): void {
