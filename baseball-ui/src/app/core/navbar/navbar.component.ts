@@ -12,7 +12,7 @@ import { AuthService } from 'src/app/modules/auth/auth.service';
     encapsulation: ViewEncapsulation.None
 })
 export class NavbarComponent {
-    @ViewChild('drawer', { static: true }) public drawer: MatSidenav;
+    @ViewChild('drawer') public drawer: MatSidenav;
 
     isHandset$: Observable<boolean> = this.breakpointObserver
         .observe([Breakpoints.Handset, Breakpoints.Small])
@@ -24,7 +24,7 @@ export class NavbarComponent {
         public authService: AuthService
     ) {
         this.authService.user$.subscribe(mes => {
-            console.log(mes);
+            console.log('mess', mes);
         });
     }
 

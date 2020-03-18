@@ -80,3 +80,14 @@ button.ng-star-inserted.mat-stroked-button {
 .mat-stroked-button:not([disabled]) {
     border: 2px solid white;
 }
+
+.logo {
+    width: 70px;
+    outline: none;
+}
+
+.mat-menu-content {
+    .material-icons, span {
+        color: var(--primary);
+    }
+}

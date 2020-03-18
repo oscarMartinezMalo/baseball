@@ -1,17 +1,17 @@
-import { Injectable } from "@angular/core";
-import { Subject, Observable, of } from "rxjs";
-import { User } from "../shared/models/user";
-import { AuthService } from "../modules/auth/auth.service";
-import { AngularFirestore } from "@angular/fire/firestore";
-import { take } from "rxjs/operators";
-import { catchError } from "rxjs/operators";
-import { throwError } from "rxjs";
-import { AppError } from "../shared/errors/app-error";
-import { NotFoundError } from "../shared/errors/not-found-error";
-import { BadInput } from "../shared/errors/bad-input";
+import { Injectable } from '@angular/core';
+import { Subject, Observable, of } from 'rxjs';
+import { User } from '../shared/models/user';
+import { AuthService } from '../modules/auth/auth.service';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { take } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
+import { AppError } from '../shared/errors/app-error';
+import { NotFoundError } from '../shared/errors/not-found-error';
+import { BadInput } from '../shared/errors/bad-input';
 
 @Injectable({
-    providedIn: "root"
+    providedIn: 'root'
 })
 export class TeamService {
     private teamMembersList: User[] = [];
@@ -38,9 +38,9 @@ export class TeamService {
 
         try {
             snapshot = await this.afs
-                .collection("users")
-                .ref.where("team", "==", currentTeam)
-                .where("roles", "==", "player")
+                .collection('users')
+                .ref.where('team', '==', currentTeam)
+                .where('roles', '==', 'player')
                 .get();
         } catch (handleError) {}
 
@@ -48,9 +48,19 @@ export class TeamService {
             return teamList;
         }
         snapshot.forEach(doc => {
-            teamList.push(doc.data() as User);
+            // Add the user Id to the object
+            const newUser = (doc.data() as User);
+            newUser.uid = doc.id;
+
+            teamList.push(newUser);
         });
         return teamList;
+    }
+
+    deleteUserFromTeam( id: string): Promise<void> {
+        try {
+            return  this.afs.collection('users').doc(id).update({team: ''});
+        } catch (handleError) { }
     }
 
     private handleError(error: Response) {

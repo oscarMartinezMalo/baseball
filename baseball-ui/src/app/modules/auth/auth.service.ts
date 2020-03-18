@@ -16,7 +16,6 @@ import { switchMap, take, map } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import * as _ from 'lodash';
-
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
@@ -79,9 +78,13 @@ export class AuthService {
         const userRef: AngularFirestoreDocument<User> = this.afs.doc<User>(
             `users/${user.uid}`
         );
-        userRef.set(userProfile).then(() => {
+
+        userRef.update(userProfile).then(() => {
             this.createNewTeam(userProfile);
         });
+        // userRef.set(userProfile).then(() => {
+        //     this.createNewTeam(userProfile);
+        // });
     }
 
     private async createNewTeam(teamMember: User) {
@@ -101,7 +104,7 @@ export class AuthService {
 
     async logIn({ email, password }: { email: string; password: string }) {
         // Get the url that the user wanted, but couldn't go because it have to login first
-        const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/';
+        const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/team-list';
 
         try {
             const credential = await this.afAuth.auth.signInWithEmailAndPassword(
@@ -140,6 +143,7 @@ export class AuthService {
             await this.updateUserData(credential.user); // Add User to the Database
 
             this.sendVerificationEmail(); // Verfication email
+            this.logOut();
         } catch (error) {
             this.snackBar.open(error.message, error.code, { duration: 3000 });
         }
@@ -188,7 +192,9 @@ export class AuthService {
             });
     }
     updateUserInfo(user: User) { }
-    sendResetEmail(emailReset: any) { }
+    sendResetEmail(emailReset: any) {
+    }
+
 
     ///// Authorization Logic /////
     /// Helper to determine if any matching roles exist

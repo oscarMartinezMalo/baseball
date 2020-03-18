@@ -31,8 +31,9 @@ th {
     text-align: center !important;
     font-size: medium;
     font-weight: 400;
-    // color: var(--primary);
-    // background-color: lightgrey;
+    color: white;
+    background-color: var(--accent);
+    z-index: 50;
 }
 
 td {

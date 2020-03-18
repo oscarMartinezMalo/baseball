@@ -13,8 +13,9 @@ body {
   font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
 :root {
-    --primary: #006065;
-    --accent: #424242;
+  --primary: #006065;
+  --accent: #424242;
+  --warm: #9b4b4b;
 }
 // :root {
 //     --primary: #4155B0;
@@ -28,7 +29,7 @@ body {
 //   }
 
 .ng-trigger.ng-trigger-routeAnimations {
-    height: 100%;
+  height: 100%;
 }
 
 .material-icons.md-18 {
@@ -66,21 +67,25 @@ mat-card {
     margin: 0px !important;
   }
 
-  & h1{
+  & h1 {
     color: var(--primary);
   }
-
 }
 
 router-outlet.ng-tns-c286-0 {
-    height: 100%;
+  height: 100%;
 }
 
-button.mat-raised-button.mat-button-base.mat-primary {
-    width: 100%;
-    border-radius: 20px;
+button.mat-flat-button.mat-button-base.mat-primary {
+  width: 100%;
+  border-radius: 20px;
 }
 
 mat-card-title.mat-card-title {
   color: var(--primary);
+}
+
+a {
+  text-decoration: none;
+  color: white;
 }

@@ -13,28 +13,25 @@ import { TestComponent } from './test/test.component';
 import { AuthGuard } from './core/guards/auth.guard';
 
 const routes: Routes = [
-  { path: 'test', component: TestComponent, data: { animation: 'isLeft' }, canActivate: [AuthGuard] },
-  { path: '', redirectTo: '/home', pathMatch: 'full', data: { animation: 'isLeft' } },
-  {
-    path: 'home', component: HomeComponent, canActivate: [AuthGuard]
-  },
-  // {
-  //   path: 'home', component: HomeComponent, canActivate: [RolesGuard],
-  //   data: { animation: 'isLeft', expectedRole: [Roles.ADMIN, Roles.PLAYER] }
-  // },
+    { path: 'test', component: TestComponent },
+    // {
+    //   path: 'home', component: HomeComponent, canActivate: [RolesGuard],
+    //   data: { animation: 'isLeft', expectedRole: [Roles.ADMIN, Roles.PLAYER] }
+    // },
+    { path: '', redirectTo: '/home', pathMatch: 'full', data: { animation: 'isLeft' } },
+    { path: 'home', component: HomeComponent, data: { animation: 'isRight' } },
+    { path: 'signin', component: SigninComponent, data: { animation: 'isRight' } },
+    { path: 'signup', component: SignupComponent, data: { animation: 'isLeft' } },
 
-  { path: 'signin', component: SigninComponent, data: { animation: 'isRight' } },
-  { path: 'signup', component: SignupComponent, data: { animation: 'isLeft' } },
+    { path: 'profile', component: ProfileComponent, data: { animation: 'isLeft' }, canActivate: [AuthGuard] },
+    { path: 'team-list', component: TeamListComponent, data: { animation: 'isLeft' }, canActivate: [AuthGuard] },
 
-  { path: 'profile', component: ProfileComponent, data: { animation: 'isLeft' }, canActivate: [AuthGuard] },
-  { path: 'team-list', component: TeamListComponent, data: { animation: 'isLeft' }, canActivate: [AuthGuard] },
-
-  { path: 'not_found', component: ErrorPageComponent, data: { message: 'This page can’t be reached', animation: 'isRight' } },
-  { path: '**', redirectTo: '/not_found', data: { animation: 'isRight' } }
+    { path: 'not_found', component: ErrorPageComponent, data: { message: 'This page can’t be reached', animation: 'isRight' } },
+    { path: '**', redirectTo: '/not_found', data: { animation: 'isRight' } }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forRoot(routes)],
+    exports: [RouterModule]
 })
 export class AppRoutingModule { }
