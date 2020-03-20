@@ -80,6 +80,7 @@ button.ng-star-inserted.mat-stroked-button {
 
 .mat-stroked-button:not([disabled]) {
     border: 2px solid white;
+    border-radius: 20px;
 }
 
 .logo {

@@ -11,6 +11,7 @@ import { TeamsDropdownComponent } from './shared/components/teams-dropdown/teams
 import { TeamListComponent } from './team/team-list/team-list.component';
 import { TestComponent } from './test/test.component';
 import { AuthGuard } from './core/guards/auth.guard';
+import { LoggedGuard } from './core/guards/logged.guard';
 
 const routes: Routes = [
     { path: 'test', component: TestComponent },
@@ -19,9 +20,9 @@ const routes: Routes = [
     //   data: { animation: 'isLeft', expectedRole: [Roles.ADMIN, Roles.PLAYER] }
     // },
     { path: '', redirectTo: '/home', pathMatch: 'full', data: { animation: 'isLeft' } },
-    { path: 'home', component: HomeComponent, data: { animation: 'isRight' } },
-    { path: 'signin', component: SigninComponent, data: { animation: 'isRight' } },
-    { path: 'signup', component: SignupComponent, data: { animation: 'isLeft' } },
+    { path: 'home', component: HomeComponent, data: { animation: 'isRight' }, canActivate: [LoggedGuard] },
+    { path: 'signin', component: SigninComponent, data: { animation: 'isRight' }, canActivate: [LoggedGuard] },
+    { path: 'signup', component: SignupComponent, data: { animation: 'isLeft' }, canActivate: [LoggedGuard] },
 
     { path: 'profile', component: ProfileComponent, data: { animation: 'isLeft' }, canActivate: [AuthGuard] },
     { path: 'team-list', component: TeamListComponent, data: { animation: 'isLeft' }, canActivate: [AuthGuard] },

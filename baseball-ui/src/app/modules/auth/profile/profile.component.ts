@@ -14,6 +14,7 @@ import { Observable, of } from 'rxjs';
 import { SharedService } from 'src/app/shared/shared.service';
 import { Router } from '@angular/router';
 import { Roles } from 'src/app/shared/enums/roles.enum';
+import { take } from 'rxjs/operators';
 
 @Component({
     selector: 'app-profile',
@@ -32,25 +33,25 @@ export class ProfileComponent implements OnInit {
     ) { }
 
     ngOnInit() {
+        this.profileForm = this.createPlayer();  // Create a default player profile
 
-        this.authService.user$.subscribe(user => {
+        this.authService.user$.pipe(take(1)).subscribe(user => {
+            // Disable Role if has already a role
+            if (user.roles.length !== 0) { this.profileForm.get('roles').disable(); }
+
             this.onRoleChange(user.roles);  // Load current profile
 
-            // Load the data from current user profile
+            // Disable Role field and team if is a coach
+            if (user.roles.includes(Roles.COACH)) { this.profileForm.get('team').disable(); console.log('here'); }
+
+            // Load the data from current user profile and change the form automatically
             const properties = Object.getOwnPropertyNames(user);
             properties.forEach(prop => {
                 this.profileForm.controls[prop]?.setValue(user[prop]);
                 // this.profileForm.controls[prop]?.disable(); // This disable all fields
             });
 
-            // Disable Role field and team if is a coach
-            if (user.roles.length !== 0) { this.disableRoleDropdown = true; }
-            if (user.roles.includes(Roles.COACH)) { this.profileForm.controls['team'].disable(); }
-
         });
-
-        this.profileForm = this.createPlayer();  // Create a default player profile
-
     }
 
     createPlayer(): FormGroup {
@@ -59,10 +60,7 @@ export class ProfileComponent implements OnInit {
             team: [null, Validators.required],
             firstName: [null, Validators.required],
             lastName: [null, Validators.required],
-            age: [
-                null,
-                [Validators.required, Validators.pattern('^([1-9][0-9]?|)$')]
-            ],
+            age: [null, [Validators.required, Validators.pattern('^([1-9][0-9]?|)$')]],
             phone: [null, Validators.required]
         });
     }
@@ -110,8 +108,8 @@ export class ProfileComponent implements OnInit {
             this.router.navigate(['/team-list']);
         }
     }
-
 }
+
 
 class CustomValidator {
     static TeamAlreadyTakenValidator(sharedService: SharedService) {

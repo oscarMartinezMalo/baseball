@@ -9,7 +9,7 @@
             <mat-card-subtitle>find your team</mat-card-subtitle>
             <mat-card-content>
                 <mat-form-field class="container">
-                    <input type="email" matInput placeholder="Email" formControlName="email">
+                    <input type="email" matInput placeholder="Email" formControlName="email"  autocomplete="email">
                     <mat-error *ngIf="signUpForm.controls['email'].hasError('required')">
                         Email <strong>required</strong>
                     </mat-error>
@@ -20,7 +20,7 @@
                 </mat-form-field>
 
                 <mat-form-field class="container">
-                    <input type="password" matInput placeholder="Password" formControlName="password">
+                    <input type="password" matInput placeholder="Password" formControlName="password" autocomplete="current-password">
                     <mat-error *ngIf="signUpForm.controls['password'].hasError('required')">
                         Password <strong>required</strong>
                     </mat-error>

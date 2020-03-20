@@ -42,7 +42,7 @@ import { DialogCustomComponent, DialogData } from 'src/app/shared/components/dia
                     // The queries run in parallel with group function
                     query('.mat-header-cell', [
                         style({ transform: 'translateY(-20px' }),
-                        animate(1000)
+                        animate(300)
                     ])
                     // { optional: true })
                 ])
@@ -75,6 +75,7 @@ import { DialogCustomComponent, DialogData } from 'src/app/shared/components/dia
     ]
 })
 export class TeamListComponent implements OnInit {
+    title = 'Players withOut team';
     displayedColumns: string[] = ['role', 'firstName', 'lastName', 'age', 'phone', 'delete'];
     public dataSource = new MatTableDataSource<User>();
     userIsCoach: boolean;
@@ -97,6 +98,9 @@ export class TeamListComponent implements OnInit {
         //     });
 
         this.authService.user$.pipe(take(1)).subscribe((user) => {
+            // Set the title from the user current
+            if (user.team) { this.title = user.team; }
+
             // If current user is not a Coach do not show trash column
             if (!(user.roles.includes(Roles.COACH))) { this.displayedColumns.pop(); }
 

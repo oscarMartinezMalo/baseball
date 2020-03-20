@@ -37,6 +37,7 @@ import { InputFormatDirective } from './shared/directives/input-format.directive
 import { TestComponent } from './test/test.component';
 import { SvgBaseballGuyComponent } from './shared/components/svg-baseball-guy/svg-baseball-guy.component';
 import { DialogCustomComponent } from './shared/components/dialog-custom/dialog-custom.component';
+import { PlayersDropdownComponent } from './shared/components/players-dropdown/players-dropdown.component';
 
 @NgModule({
     declarations: [
@@ -52,7 +53,8 @@ import { DialogCustomComponent } from './shared/components/dialog-custom/dialog-
         InputFormatDirective,
         TestComponent,
         SvgBaseballGuyComponent,
-        DialogCustomComponent
+        DialogCustomComponent,
+        PlayersDropdownComponent
     ],
     imports: [
         BrowserModule,

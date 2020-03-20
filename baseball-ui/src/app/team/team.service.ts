@@ -42,24 +42,18 @@ export class TeamService {
                 .ref.where('team', '==', currentTeam)
                 .where('roles', 'in', ['player', 'coach'])
                 .get();
-        } catch (handleError) {}
+        } catch (handleError) { }
 
         if (snapshot.empty) {
             return teamList;
         }
-        snapshot.forEach(doc => {
-            // Add the user Id to the object
-            const newUser = (doc.data() as User);
-            newUser.uid = doc.id;
-
-            teamList.push(newUser);
-        });
+        snapshot.forEach(doc => { teamList.push(doc.data() as User); });
         return teamList;
     }
 
-    deleteUserFromTeam( id: string): Promise<void> {
+    deleteUserFromTeam(id: string): Promise<void> {
         try {
-            return  this.afs.collection('users').doc(id).update({team: ''});
+            return this.afs.collection('users').doc(id).update({ team: '' });
         } catch (handleError) { }
     }
 

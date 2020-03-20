@@ -22,11 +22,7 @@ export class NavbarComponent {
     constructor(
         private breakpointObserver: BreakpointObserver,
         public authService: AuthService
-    ) {
-        this.authService.user$.subscribe(mes => {
-            console.log('mess', mes);
-        });
-    }
+    ) { }
 
     // tslint:disable-next-line: use-lifecycle-interface
     public async ngOnInit() {
@@ -36,7 +32,7 @@ export class NavbarComponent {
     public drawerClose(): void {
         this.isHandset$.subscribe(isHandset => {
             if (isHandset) {
-                this.drawer.toggle(false);
+                this.drawer?.toggle(false);
             }
         });
     }

@@ -11,7 +11,7 @@
             <div fxLayout="row wrap" fxLayoutAlign="space-between center" fxLayoutGap="10px">
                 <mat-form-field appearance="outline" fxFlex="48" fxFlex.xs="100">
                     <mat-label>Select your Role *</mat-label>
-                    <mat-select formControlName="roles" (selectionChange)="onRoleChange($event.value)"[disabled]="disableRoleDropdown">
+                    <mat-select formControlName="roles" (selectionChange)="onRoleChange($event.value)">
                         <mat-option value="player">Player</mat-option>
                         <mat-option value="coach">Coach</mat-option>
                         <mat-option value="fan">Fan</mat-option>
@@ -93,7 +93,10 @@
                     </mat-error>
                 </mat-form-field>
 
-                <mat-form-field appearance="outline" *ngIf="profileForm.controls['roles'].value === 'fan'" fxFlex="48"
+                <app-players-dropdown *ngIf="profileForm.controls['roles'].value === 'fan'" fxFlex="48"
+                    fxFlex.xs="100"  formControlName="fanOf"></app-players-dropdown>
+
+                <!-- <mat-form-field appearance="outline" *ngIf="profileForm.controls['roles'].value === 'fan'" fxFlex="48"
                     fxFlex.xs="100">
                     <mat-label>Select player to follow *</mat-label>
                     <mat-select formControlName="fanOf" (selectionChange)="onRoleChange($event)">
@@ -101,15 +104,16 @@
                         <mat-option value="Leonel Messi">Leonel Messi</mat-option>
                         <mat-option value="Leonardo DaVinci">Leonardo DaVinci</mat-option>
                     </mat-select>
-                </mat-form-field>
+                </mat-form-field> -->
                 <!-- This this is to resolve the problem of the gap -->
                 <div></div>
             </div>
         </mat-card-content>
         <mat-card-actions style="padding: 0px;">
-            <button mat-raised-button color="primary" type="submit" class="full-width">
+            <button mat-flat-button color="primary" type="submit" class="full-width">
                 Submit
             </button>
         </mat-card-actions>
     </mat-card>
 </form>
+
