@@ -13,6 +13,7 @@ import { AuthService } from '../auth.service';
 import { Observable, of } from 'rxjs';
 import { SharedService } from 'src/app/shared/shared.service';
 import { Router } from '@angular/router';
+import { Roles } from 'src/app/shared/enums/roles.enum';
 
 @Component({
     selector: 'app-profile',
@@ -20,11 +21,8 @@ import { Router } from '@angular/router';
     styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
+    disableRoleDropdown = false;
     profileForm: FormGroup;
-
-    ngOnInit() {
-        this.profileForm = this.createPlayer();
-    }
 
     constructor(
         private fb: FormBuilder,
@@ -32,6 +30,28 @@ export class ProfileComponent implements OnInit {
         private sharedService: SharedService,
         private router: Router
     ) { }
+
+    ngOnInit() {
+
+        this.authService.user$.subscribe(user => {
+            this.onRoleChange(user.roles);  // Load current profile
+
+            // Load the data from current user profile
+            const properties = Object.getOwnPropertyNames(user);
+            properties.forEach(prop => {
+                this.profileForm.controls[prop]?.setValue(user[prop]);
+                // this.profileForm.controls[prop]?.disable(); // This disable all fields
+            });
+
+            // Disable Role field and team if is a coach
+            if (user.roles.length !== 0) { this.disableRoleDropdown = true; }
+            if (user.roles.includes(Roles.COACH)) { this.profileForm.controls['team'].disable(); }
+
+        });
+
+        this.profileForm = this.createPlayer();  // Create a default player profile
+
+    }
 
     createPlayer(): FormGroup {
         return this.fb.group({
@@ -69,8 +89,8 @@ export class ProfileComponent implements OnInit {
     }
 
     // Dropdown Role change
-    onRoleChange($event) {
-        switch ($event.value) {
+    onRoleChange(value) {
+        switch (value) {
             case 'player':
                 this.profileForm = this.createPlayer();
                 break;

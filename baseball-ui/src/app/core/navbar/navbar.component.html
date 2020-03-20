@@ -4,7 +4,7 @@
             *ngIf="(isHandset$ | async) && (authService.user$ | async)">
             <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
         </button>
-        <img src="../../../assets/images/logo.svg" class="logo" [routerLink]="['/home']" routerLinkActive="router-link-active"  *ngIf="!(authService.user$ | async) || (!(isHandset$ | async) && (authService.user$ | async) )  ">
+        <img src="../../../assets/images/logo.svg" class="logo" [routerLink]="(authService.user$ | async) ? ['team-list'] : ['/home']" routerLinkActive="router-link-active"  *ngIf="!(authService.user$ | async) || (!(isHandset$ | async) && (authService.user$ | async) )  ">
         <span class="spacer" *ngIf="isHandset$ | async"></span>
     </div>
     
@@ -35,10 +35,10 @@
                     <span>Hello {{user.firstName}}</span>
                 </button>
 
-                <button type="button" routerLinkActive="active" mat-menu-item class="example-icon">
+                <!-- <button type="button" routerLinkActive="active" mat-menu-item class="example-icon">
                     <mat-icon class="material-icons md-dark ">settings</mat-icon>
                     <span>Settings</span>
-                </button>
+                </button> -->
 
                 <button type="button" routerLinkActive="active" mat-menu-item class="example-icon"
                     routerLink="/profile">
@@ -63,7 +63,7 @@
         <!-- [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false"  *ngIf="(authService.user | async) && (authService.user$ | async)"> -->
 
         <mat-nav-list>
-            <a mat-list-item (click)="drawerClose()" routerLinkActive="active" [routerLink]="['/team-list']">My Team
+            <a mat-list-item (click)="drawerClose()" routerLinkActive="active" [routerLink]="['/team-list']">Team
                 Members</a>
             <mat-divider></mat-divider>
 

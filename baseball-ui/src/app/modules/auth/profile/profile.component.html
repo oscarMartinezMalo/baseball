@@ -11,7 +11,7 @@
             <div fxLayout="row wrap" fxLayoutAlign="space-between center" fxLayoutGap="10px">
                 <mat-form-field appearance="outline" fxFlex="48" fxFlex.xs="100">
                     <mat-label>Select your Role *</mat-label>
-                    <mat-select formControlName="roles" (selectionChange)="onRoleChange($event)">
+                    <mat-select formControlName="roles" (selectionChange)="onRoleChange($event.value)"[disabled]="disableRoleDropdown">
                         <mat-option value="player">Player</mat-option>
                         <mat-option value="coach">Coach</mat-option>
                         <mat-option value="fan">Fan</mat-option>
@@ -47,11 +47,8 @@
 
                 <mat-form-field appearance="outline" fxFlex="48" fxFlex.xs="100">
                     <mat-label>First Name *</mat-label>
-                    <input matInput placeholder="Your First Name" formControlName="firstName" #firstName [value]="
-                            firstName.value[0]
-                                ? firstName.value[0].toUpperCase()
-                                : firstName.value
-                        " />
+                    <input matInput placeholder="Your First Name" formControlName="firstName" #firstName />
+                    <!-- [value]=" firstName.value[0] ? firstName.value[0].toUpperCase() : firstName.value " -->
                     <mat-error *ngIf="
                             profileForm.controls['firstName'].hasError(
                                 'required'
@@ -62,11 +59,8 @@
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" fxFlex="48" fxFlex.xs="100">
-                    <input matInput placeholder="Your Last Name" formControlName="lastName" #lastName [value]="
-                            lastName.value[0]
-                                ? lastName.value[0].toUpperCase()
-                                : lastName.value
-                        " />
+                    <input matInput placeholder="Your Last Name" formControlName="lastName" #lastName />
+                    <!-- [value]=" lastName.value[0] ? lastName.value[0].toUpperCase() : lastName.value " -->
                     <mat-label>Last Name *</mat-label>
                     <mat-error *ngIf="
                             profileForm.controls['lastName'].hasError(

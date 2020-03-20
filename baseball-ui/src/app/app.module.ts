@@ -36,6 +36,7 @@ import { AppErrorHandler } from './shared/errors/app-error-handler';
 import { InputFormatDirective } from './shared/directives/input-format.directive';
 import { TestComponent } from './test/test.component';
 import { SvgBaseballGuyComponent } from './shared/components/svg-baseball-guy/svg-baseball-guy.component';
+import { DialogCustomComponent } from './shared/components/dialog-custom/dialog-custom.component';
 
 @NgModule({
     declarations: [
@@ -50,7 +51,8 @@ import { SvgBaseballGuyComponent } from './shared/components/svg-baseball-guy/sv
         TeamListComponent,
         InputFormatDirective,
         TestComponent,
-        SvgBaseballGuyComponent
+        SvgBaseballGuyComponent,
+        DialogCustomComponent
     ],
     imports: [
         BrowserModule,

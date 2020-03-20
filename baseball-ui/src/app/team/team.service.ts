@@ -40,7 +40,7 @@ export class TeamService {
             snapshot = await this.afs
                 .collection('users')
                 .ref.where('team', '==', currentTeam)
-                .where('roles', '==', 'player')
+                .where('roles', 'in', ['player', 'coach'])
                 .get();
         } catch (handleError) {}
 

@@ -51,10 +51,11 @@ mat-toolbar.mat-toolbar {
 }
 
 .sidenav {
-    // background-color: var(--primary) !important;
+    // background-color: var(--accent) !important;
 
     .mat-list-base .mat-list-item {
-        // color: var(--primary-light);
+        background-color: var(--accent);
+        color: white;
     }
 }
 
