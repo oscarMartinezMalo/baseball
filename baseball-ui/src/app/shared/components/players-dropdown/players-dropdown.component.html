@@ -2,10 +2,12 @@
     <mat-label>Pick Your Favorite Player</mat-label>
     <mat-select  [disabled]="disabled" [(ngModel)]="value" name="playerName" #playerName="ngModel"
         (selectionChange)="selectChange($event)"  [compareWith]="compareFn"  [required]='required'>
+        <mat-option>--</mat-option>
         <mat-option *ngFor="let player of players" [value]="player">
             {{player}}
         </mat-option>
     </mat-select>
+    <mat-hint align="start">{{message}}</mat-hint>
     <mat-error *ngIf="playerName.errors?.required">Please choose a <strong>Player</strong></mat-error>
 
     <div style="position:relative; top: 8px; height: 2px; overflow: hidden;">

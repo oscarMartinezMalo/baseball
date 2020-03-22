@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, forwardRef, ElementRef, Renderer2 } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, forwardRef, ElementRef, Renderer2, Input } from '@angular/core';
 import { SharedService } from '../../shared.service';
 import { User } from '../../models/user';
 import { NG_VALUE_ACCESSOR, NG_VALIDATORS, Validator, SelectControlValueAccessor, FormControl } from '@angular/forms';
@@ -22,6 +22,22 @@ import { NG_VALUE_ACCESSOR, NG_VALIDATORS, Validator, SelectControlValueAccessor
 })
 export class PlayersDropdownComponent extends SelectControlValueAccessor
     implements OnInit, Validator {
+    // Define a setter to detect changes when the input change
+    private _teamSelected: string;
+    @Input() set teamSelected(value: string) {
+        this.loadPlayer(value).then(players => {
+            // Message under FanOf to guide the user what should he do
+            players.length > 0 ? this.message = '' : this.message = 'Team selected doesn\'t have any player';
+        });
+
+        this._teamSelected = value;
+    }
+
+    get teamSelected(): string {
+        return this._teamSelected;
+    }
+
+    message = '';
     required = false;
     value: string;
     disabled: boolean;
@@ -74,14 +90,17 @@ export class PlayersDropdownComponent extends SelectControlValueAccessor
         super(_renderer, _elementRef);
     }
 
-    async ngOnInit() {
+    async ngOnInit() { }
+
+    async loadPlayer(team): Promise<string[]> {
         this.showProgressbar = true; // Start progress bar
 
         // Call service to get the teams
-        const result = await this.sharedService.getPlayersFromCurrentTeam() as User[];
+        const result = await this.sharedService.getPlayersFromCurrentTeam(team) as User[];
         this.players = result.map(py => (`${py.firstName} ${py.lastName}`)); // Get only the first and LastName from the users
 
         this.showProgressbar = false;
+        return this.players;
     }
 
 }

@@ -60,14 +60,14 @@ export class SharedService {
     }
 
     // Get team players from the current user team
-    async getPlayersFromCurrentTeam(): Promise<User[]> {
+    async getPlayersFromCurrentTeam(team: string): Promise<User[]> {
         const teamList: User[] = [];
 
         return this.authService.user$.pipe(take(1),
             map(async user => {
                 const snapshot = await this.afs
                     .collection('users')
-                    .ref.where('team', '==', user.team)
+                    .ref.where('team', '==', team)
                     .where('roles', '==', 'player')
                     .get();
 

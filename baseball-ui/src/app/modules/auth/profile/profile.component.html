@@ -18,13 +18,13 @@
                     </mat-select>
                 </mat-form-field>
 
-                <teams-dropdown *ngIf="!(profileForm.controls['roles'].value === 'coach')" formControlName="team"
+                <teams-dropdown *ngIf="!(profileForm.controls['roles'].value === 'coach')" formControlName="team" 
                     fxFlex="48" fxFlex.xs="100">
                 </teams-dropdown>
 
                 <mat-form-field *ngIf="profileForm.controls['roles'].value === 'coach'" appearance="outline" fxFlex="48"
                     fxFlex.xs="100">
-                    <input matInput placeholder="Create Team" formControlName="team" appInputFormat />
+                    <input matInput placeholder="Create Team" formControlName="team" appInputFormat/>
                     <mat-spinner matSuffix [diameter]="20" *ngIf="profileForm.controls['team'].pending"></mat-spinner>
 
                     <mat-error *ngIf="
@@ -94,7 +94,7 @@
                 </mat-form-field>
 
                 <app-players-dropdown *ngIf="profileForm.controls['roles'].value === 'fan'" fxFlex="48"
-                    fxFlex.xs="100"  formControlName="fanOf"></app-players-dropdown>
+                    fxFlex.xs="100"  formControlName="fanOf" [teamSelected]="profileForm.get('team').value"></app-players-dropdown>
 
                 <!-- <mat-form-field appearance="outline" *ngIf="profileForm.controls['roles'].value === 'fan'" fxFlex="48"
                     fxFlex.xs="100">
