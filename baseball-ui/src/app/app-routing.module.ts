@@ -12,6 +12,7 @@ import { TeamListComponent } from './team/team-list/team-list.component';
 import { TestComponent } from './test/test.component';
 import { AuthGuard } from './core/guards/auth.guard';
 import { LoggedGuard } from './core/guards/logged.guard';
+import { SvgPeopleCouchComponent } from './shared/components/svg-people-couch/svg-people-couch.component';
 
 const routes: Routes = [
     { path: 'test', component: TestComponent },
@@ -26,6 +27,8 @@ const routes: Routes = [
 
     { path: 'profile', component: ProfileComponent, data: { animation: 'isLeft' }, canActivate: [AuthGuard] },
     { path: 'team-list', component: TeamListComponent, data: { animation: 'isLeft' }, canActivate: [AuthGuard] },
+
+    { path: 'tst', component: SvgPeopleCouchComponent },
 
     { path: 'not_found', component: ErrorPageComponent, data: { message: 'This page can’t be reached', animation: 'isRight' } },
     { path: '**', redirectTo: '/not_found', data: { animation: 'isRight' } }

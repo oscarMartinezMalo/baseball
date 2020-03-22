@@ -1,0 +1,76 @@
+svg {
+    width: 100%;
+}
+
+#arm {
+    animation-name: moveBoyHand;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    transform-box: fill-box;
+    transform-origin: bottom right;
+}
+
+@keyframes moveBoyHand {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(8deg);
+    }
+}
+
+#toy-hand {
+    animation-name: moveHand;
+    animation-duration: 1.8s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-delay: 1s;;
+}
+
+@keyframes moveHand {
+    from {
+        transform: translateY(0px);
+    }
+    to {
+        transform: translateY(-20px);
+    }
+}
+
+#balls-right {
+    animation-name: rotateBallRight;
+    animation-duration: 40s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    transform-box: fill-box;
+    transform-origin: center;
+}
+
+@keyframes rotateBallRight {
+    from {
+        transform: translateX(0px);
+    }
+    to {
+        transform: translateX(-80px);
+    }
+}
+
+#balls-left {
+    animation-name: translateBalls;
+    animation-duration: 20s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    transform-box: fill-box;
+    transform-origin: center;
+}
+
+@keyframes translateBalls {
+    from {
+        transform: translateX(0px);
+    }
+    to {
+        transform: translateX(80px);
+    }
+}

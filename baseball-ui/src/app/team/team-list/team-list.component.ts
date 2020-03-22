@@ -41,7 +41,7 @@ import { DialogCustomComponent, DialogData } from 'src/app/shared/components/dia
                 group([
                     // The queries run in parallel with group function
                     query('.mat-header-cell', [
-                        style({ transform: 'translateY(-20px' }),
+                        style({ transform: 'translateY(-20px)' }),
                         animate(300)
                     ])
                     // { optional: true })

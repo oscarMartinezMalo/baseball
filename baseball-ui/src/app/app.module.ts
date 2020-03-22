@@ -38,6 +38,7 @@ import { TestComponent } from './test/test.component';
 import { SvgBaseballGuyComponent } from './shared/components/svg-baseball-guy/svg-baseball-guy.component';
 import { DialogCustomComponent } from './shared/components/dialog-custom/dialog-custom.component';
 import { PlayersDropdownComponent } from './shared/components/players-dropdown/players-dropdown.component';
+import { SvgPeopleCouchComponent } from './shared/components/svg-people-couch/svg-people-couch.component';
 
 @NgModule({
     declarations: [
@@ -54,7 +55,8 @@ import { PlayersDropdownComponent } from './shared/components/players-dropdown/p
         TestComponent,
         SvgBaseballGuyComponent,
         DialogCustomComponent,
-        PlayersDropdownComponent
+        PlayersDropdownComponent,
+        SvgPeopleCouchComponent
     ],
     imports: [
         BrowserModule,

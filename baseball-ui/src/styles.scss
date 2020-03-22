@@ -91,3 +91,13 @@ a {
   text-decoration: none;
   color: white;
 }
+
+.home-container {
+  background: rgb(255, 255, 255);
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(173, 218, 221, 0.6895133053221288) 100%,
+    rgba(0, 212, 255, 1) 100%
+  );
+}
