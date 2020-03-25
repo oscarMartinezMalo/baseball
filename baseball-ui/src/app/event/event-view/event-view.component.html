@@ -1,32 +1,34 @@
-<mat-card class="event-card" fxLayout="column" fxLayoutGap="10px" *ngIf="event">
-    <div fxLayoutAlign="space-between start" class='event-card-header'>
-        <div fxLayout="row">
-            <mat-icon class="event-icon-calendar">event_note</mat-icon>
+<div fxLayout="row" fxLayoutAlign="center center">
+    <mat-card class="event-card" fxLayout="column" fxLayoutGap="10px" *ngIf="event">
+        <div fxLayoutAlign="space-between start" class='event-card-header'>
+            <div fxLayout="row">
+                <mat-icon class="event-icon-calendar">event_note</mat-icon>
+                <div>
+                    <p class="title-event-card">{{event.title}}</p>
+                    <p>{{event.subtitle}}</p>
+                </div>
+            </div>
             <div>
-                <p class="title-event-card">{{event.title}}</p>
-                <p>{{event.subtitle}}</p>
+                <p>{{event?.date | date }}</p>
+                <p>{{event.time}}</p>
             </div>
         </div>
-        <div>
-            <p>{{event?.date  }}</p>
-            <p>{{event.time}}</p>
+
+        <mat-card-content *ngIf="event.comment">
+            <p class="event-card-comment" fxLayout="row">
+                {{event.comment}}
+            </p>
+        </mat-card-content>
+
+        <agm-map [latitude]='lat' [longitude]='lng' [zoom]='mapZoom' class="map">
+            <agm-marker *ngIf="locationChosen" [latitude]='lat' [longitude]='lng'></agm-marker>
+        </agm-map>
+
+        <div fxLayoutAlign="end start" class="container" *ngIf="event.locationUrl">
+            <span>Open on Google Maps</span>
+            <a [href]="event.locationUrl" target="_blank">
+                <mat-icon class="event-icon-place">place</mat-icon>
+            </a>
         </div>
-    </div>
-
-    <mat-card-content *ngIf="event.comment">
-        <p class="event-card-comment" fxLayout="row">
-            {{event.comment}}
-        </p>
-    </mat-card-content>
-
-    <agm-map [latitude]='lat' [longitude]='lng' [zoom]='mapZoom' class="map">
-        <agm-marker *ngIf="locationChosen" [latitude]='lat' [longitude]='lng'></agm-marker>
-    </agm-map>
-
-    <div fxLayoutAlign="end start" class="container" *ngIf="event.locationUrl">
-        <span>Open on Google Maps</span>
-        <a [href]="event.locationUrl" target="_blank">
-            <mat-icon class="event-icon-place">place</mat-icon>
-        </a>
-    </div>
-</mat-card>
+    </mat-card>
+</div>

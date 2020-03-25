@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material';
 import { EventService } from '../event.service';
 import { Router } from '@angular/router';
+import { take } from 'rxjs/operators';
 
 @Component({
     selector: 'app-event-list',
@@ -18,7 +19,8 @@ export class EventListComponent implements OnInit {
 
     ngOnInit(): void {
         this.eventService.getAllEventCurrentTeam();
-        this.eventService.subjectEvents.subscribe(events => {
+        this.eventService.subjectEvents.pipe(take(1)).
+        subscribe(events => {
             this.dataSource = new MatTableDataSource(events);
         });
     }
@@ -30,7 +32,6 @@ export class EventListComponent implements OnInit {
 
 
     onRowClick(row) {
-        console.log(row);
         this.router.navigate(['event-view', row.id]);
     }
 }

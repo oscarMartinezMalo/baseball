@@ -21,12 +21,28 @@ export class EventViewComponent implements OnInit {
         private eventService: EventService,
         private route: ActivatedRoute) { }
 
-    async ngOnInit(): Promise<void> {
+    ngOnInit() {
         const eventId = this.route.snapshot.paramMap.get('id');
+
+        // If url param does have anything don't do anything
+        if (eventId) {
+            this.loadCard(eventId);
+        }
+    }
+
+    // Load card from id URL
+    async loadCard(eventId: string): Promise<void> {
         const resultEvent = await this.eventService.getEventById(eventId);
 
         this.event = resultEvent as Event;
-        this.locationChosen = true;
+
+        // tslint:disable-next-line:no-string-literal
+        this.event.date = new Date(this.event.date['seconds'] * 1000).toString();
+        this.locationChosen = this.event.locationChosen;
+        this.lat = this.event.lat; console.log(this.event.lat);
+        this.lng = this.event.lng; console.log(this.event.lng);
+        this.mapZoom = this.event.mapZoom;
     }
 
 }
+

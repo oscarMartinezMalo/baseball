@@ -10,4 +10,5 @@ export class Event {
     lng: number;
     mapZoom: number;
     team: string;
+    locationChosen: boolean;
 }

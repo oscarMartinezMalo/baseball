@@ -48,7 +48,13 @@ export class EventCreateComponent implements OnInit {
         if (this.eventForm.invalid) { return; }
 
         let eventObj: Event;
-        eventObj = { ...this.eventForm.value, lat: this.lat, lnt: this.lng, zoom: this.mapZoom };
+        eventObj = {
+            ...this.eventForm.value,
+            lat: this.lat,
+            lng: this.lng,
+            mapZoom: this.mapZoom,
+            locationChosen: this.locationChosen
+        };
 
         if (await this.eventService.addEvent(eventObj)) {
             this.router.navigate(['/event-list']);
