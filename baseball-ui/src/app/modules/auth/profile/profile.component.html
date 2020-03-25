@@ -3,10 +3,7 @@
         <mat-toolbar color="primary">
             <span>CREATE YOUR PROFILE</span>
         </mat-toolbar>
-        <mat-card-header color="primary" fxLayoutAlign="center center">
-            <!-- <mat-card-title>CREATE YOUR PROFILE</mat-card-title> -->
 
-        </mat-card-header>
         <mat-card-content style="padding-left: 10px;">
             <div fxLayout="row wrap" fxLayoutAlign="space-between center" fxLayoutGap="10px">
                 <mat-form-field appearance="outline" fxFlex="48" fxFlex.xs="100">
@@ -18,25 +15,19 @@
                     </mat-select>
                 </mat-form-field>
 
-                <teams-dropdown *ngIf="!(profileForm.controls['roles'].value === 'coach')" formControlName="team" 
+                <teams-dropdown *ngIf="!(profileForm.controls['roles'].value === 'coach')" formControlName="team"
                     fxFlex="48" fxFlex.xs="100">
                 </teams-dropdown>
 
                 <mat-form-field *ngIf="profileForm.controls['roles'].value === 'coach'" appearance="outline" fxFlex="48"
                     fxFlex.xs="100">
-                    <input matInput placeholder="Create Team" formControlName="team" appInputFormat/>
+                    <input matInput placeholder="Create Team" formControlName="team" appInputFormat />
                     <mat-spinner matSuffix [diameter]="20" *ngIf="profileForm.controls['team'].pending"></mat-spinner>
 
-                    <mat-error *ngIf="
-                            profileForm.controls['team'].hasError(
-                                'teamAlreadyTaken'
-                            )
-                        ">
+                    <mat-error *ngIf="profileForm.controls['team'].hasError('teamAlreadyTaken')">
                         This team is already <strong>taken</strong>
                     </mat-error>
-                    <mat-error *ngIf="
-                            profileForm.controls['team'].hasError('required')
-                        ">
+                    <mat-error *ngIf="profileForm.controls['team'].hasError('required')">
                         Team is <strong>required</strong>
                     </mat-error>
                     <!-- <div *ngIf="profileForm.controls['team'].pending">
@@ -93,8 +84,8 @@
                     </mat-error>
                 </mat-form-field>
 
-                <app-players-dropdown *ngIf="profileForm.controls['roles'].value === 'fan'" fxFlex="48"
-                    fxFlex.xs="100"  formControlName="fanOf" [teamSelected]="profileForm.get('team').value"></app-players-dropdown>
+                <app-players-dropdown *ngIf="profileForm.controls['roles'].value === 'fan'" fxFlex="48" fxFlex.xs="100"
+                    formControlName="fanOf" [teamSelected]="profileForm.get('team').value"></app-players-dropdown>
 
                 <!-- <mat-form-field appearance="outline" *ngIf="profileForm.controls['roles'].value === 'fan'" fxFlex="48"
                     fxFlex.xs="100">
@@ -116,4 +107,3 @@
         </mat-card-actions>
     </mat-card>
 </form>
-

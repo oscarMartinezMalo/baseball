@@ -1,0 +1,41 @@
+table {
+    align-content: center;
+    margin: 0px 10px 0px 10px;
+    width: 99%;
+}
+
+.mat-form-field {
+    font-size: 14px;
+    width: 100%;
+}
+
+th {
+    text-align: center !important;
+    font-size: medium;
+    font-weight: 400;
+    color: white;
+    background-color: var(--accent);
+    z-index: 50;
+}
+
+td {
+    text-align: center !important;
+}
+
+tr:hover {
+    background-color: rgb(221, 221, 221);
+}
+
+.list-empty {
+    text-align: center;
+}
+
+.coach-row {
+    font-weight: bold;
+    background-color: var(--accent-light);
+}
+
+.icon-place {
+    color: var(--warm);
+    cursor: pointer;
+}

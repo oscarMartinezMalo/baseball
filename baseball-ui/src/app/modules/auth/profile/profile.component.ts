@@ -22,7 +22,6 @@ import { take } from 'rxjs/operators';
     styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-    disableRoleDropdown = false;
     profileForm: FormGroup;
 
     constructor(

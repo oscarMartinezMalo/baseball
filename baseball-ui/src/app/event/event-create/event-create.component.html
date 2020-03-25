@@ -1,0 +1,83 @@
+<form [formGroup]="eventForm" novalidate (ngSubmit)="onSubmit()" fxLayout="row" fxLayoutAlign="space-around center">
+    <mat-card class="custom-card shipping-card" fxLayout="column" fxLayoutGap="10px">
+        <mat-toolbar color="primary">
+            <span>CREATE EVENT</span>
+        </mat-toolbar>
+
+
+        <mat-card-content style="padding-left: 10px;">
+
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center" fxLayoutGap="10px">
+                <mat-form-field appearance="outline" fxFlex="48" fxFlex.xs="100">
+                    <mat-label>Title *</mat-label>
+                    <input matInput placeholder="Event title" formControlName="title" />
+                    <mat-error *ngIf="eventForm.controls['title'].hasError('required')">
+                        Title is <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" fxFlex="48" fxFlex.xs="100">
+                    <mat-label>Choose Event a date *</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="date" />
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    <mat-error *ngIf="eventForm.controls['date'].hasError('required')">
+                        Date is <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center" fxLayoutGap="10px">
+                <mat-form-field appearance="outline" fxFlex="48" fxFlex.xs="100">
+                    <mat-label>Subtitle *</mat-label>
+                    <input matInput placeholder="Ex. Team1 vs Team 2" formControlName="subtitle" />
+                    <!-- <mat-error *ngIf="eventForm.controls['subtitle'].hasError('required')">
+                        Subtitle is <strong>required</strong>
+                    </mat-error> -->
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" fxFlex="48" fxFlex.xs="100">
+                    <mat-label>Event Time *</mat-label>
+                    <input matInput placeholder="Time" formControlName="time" />
+                    <mat-error *ngIf="eventForm.controls['time'].hasError('required')">
+                        Time is <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row wrap">
+                <mat-form-field appearance="outline" fxFlex="100">
+                    <mat-label>Comment</mat-label>
+                    <textarea matInput placeholder="Ex. Bring bottles of water..." formControlName="comment"></textarea>
+                    <!-- <mat-error *ngIf="eventForm.controls['comment'].hasError('required')">
+                        Comment is <strong>required</strong>
+                    </mat-error> -->
+                </mat-form-field>
+            </div>
+
+            <agm-map [latitude]='lat' [longitude]='lng' [zoom]='mapZoom' (mapClick)="mapChoseLocation($event)"
+                (zoomChange)="onChanges($event)">
+                <agm-marker *ngIf="locationChosen" [latitude]='lat' [longitude]='lng'></agm-marker>
+            </agm-map>
+
+            <div fxLayout="row wrap">
+                <mat-form-field appearance="outline" fxFlex="100">
+                    <mat-label>Google URL *</mat-label>
+                    <textarea matInput placeholder="Ex. https://goo.gl/maps/GmwSffoRDhLFGDRV8"
+                        formControlName="locationUrl"></textarea>
+                    <!-- <mat-error *ngIf="eventForm.controls['locationUrl'].hasError('required')">
+                        URL is <strong>required</strong>
+                    </mat-error> -->
+                </mat-form-field>
+            </div>
+        </mat-card-content>
+
+        <mat-card-actions style="padding: 0px;">
+            <button mat-flat-button (click)="this.router.navigate(['/event-list'])">Cancel</button>
+            <button mat-flat-button color="primary" type="submit"> Save </button>
+        </mat-card-actions>
+    </mat-card>
+
+    <!-- Mat-Card Event View Component -->
+    <app-event-view [event]="this.eventForm.value" [lat]='lat' [lng]='lng' [mapZoom]='mapZoom' [locationChosen]="locationChosen"></app-event-view>
+</form>

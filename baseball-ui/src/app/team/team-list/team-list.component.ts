@@ -136,7 +136,5 @@ export class TeamListComponent implements OnInit {
                 this.dataSource._updateChangeSubscription();
             }
         });
-
-
     }
 }

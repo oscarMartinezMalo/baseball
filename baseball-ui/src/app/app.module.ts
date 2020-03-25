@@ -39,6 +39,11 @@ import { SvgBaseballGuyComponent } from './shared/components/svg-baseball-guy/sv
 import { DialogCustomComponent } from './shared/components/dialog-custom/dialog-custom.component';
 import { PlayersDropdownComponent } from './shared/components/players-dropdown/players-dropdown.component';
 import { SvgPeopleCouchComponent } from './shared/components/svg-people-couch/svg-people-couch.component';
+import { EventListComponent } from './event/event-list/event-list.component';
+import { EventCreateComponent } from './event/event-create/event-create.component';
+
+import { AgmCoreModule } from '@agm/core';
+import { EventViewComponent } from './event/event-view/event-view.component';
 
 @NgModule({
     declarations: [
@@ -56,7 +61,10 @@ import { SvgPeopleCouchComponent } from './shared/components/svg-people-couch/sv
         SvgBaseballGuyComponent,
         DialogCustomComponent,
         PlayersDropdownComponent,
-        SvgPeopleCouchComponent
+        SvgPeopleCouchComponent,
+        EventListComponent,
+        EventCreateComponent,
+        EventViewComponent
     ],
     imports: [
         BrowserModule,
@@ -75,7 +83,10 @@ import { SvgPeopleCouchComponent } from './shared/components/svg-people-couch/sv
         ReactiveFormsModule,
         FormsModule,
 
-        MaterialModuleModule // All material components
+        MaterialModuleModule, // All material components
+        AgmCoreModule.forRoot({
+            apiKey: 'AIzaSyA0kkBMUjx6m2boflcIXBxBQ0Ee_7lcrg8'
+        })
     ],
     providers: [
         SharedService,
