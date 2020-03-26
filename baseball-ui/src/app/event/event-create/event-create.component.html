@@ -1,13 +1,13 @@
-<form [formGroup]="eventForm" novalidate (ngSubmit)="onSubmit()" fxLayout="row" fxLayoutAlign="space-around center">
-    <mat-card class="create-event-card" fxLayout="column" fxLayoutGap="10px">
+<form [formGroup]="eventForm" novalidate (ngSubmit)="onSubmit()"
+ fxLayout="row" fxLayoutAlign="space-around center"  fxLayoutGap="10px">
+    
+    <mat-card class="create-event-card" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
         <mat-toolbar color="primary">
             <span>CREATE EVENT</span>
         </mat-toolbar>
 
-
         <mat-card-content style="padding: 0px 10px 0px 10px;">
-
-            <div fxLayout="row wrap" fxLayoutAlign="space-between center" fxLayoutGap="10px">
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center" fxLayoutGap.gt-sm="10px">
                 <mat-form-field appearance="outline" fxFlex="48" fxFlex.xs="100">
                     <mat-label>Title *</mat-label>
                     <input matInput placeholder="Event title" formControlName="title" />
@@ -27,7 +27,7 @@
                 </mat-form-field>
             </div>
 
-            <div fxLayout="row wrap" fxLayoutAlign="space-between center" fxLayoutGap="10px">
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center" fxLayoutGap.gt-sm="10px">
                 <mat-form-field appearance="outline" fxFlex="48" fxFlex.xs="100">
                     <mat-label>Subtitle *</mat-label>
                     <input matInput placeholder="Ex. Team1 vs Team 2" formControlName="subtitle" />
@@ -82,5 +82,6 @@
     </mat-card>
 
     <!-- Mat-Card Event View Component -->
-    <app-event-view [event]="this.eventForm.value" [lat]='lat' [lng]='lng' [mapZoom]='mapZoom' [locationChosen]="locationChosen"></app-event-view>
+    <app-event-view [event]="this.eventForm.value" [lat]='lat' [lng]='lng'
+     [mapZoom]='mapZoom' [locationChosen]="locationChosen" fxFlex="50" fxHide.lt-md></app-event-view>
 </form>
