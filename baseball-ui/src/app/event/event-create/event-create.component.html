@@ -1,11 +1,11 @@
 <form [formGroup]="eventForm" novalidate (ngSubmit)="onSubmit()" fxLayout="row" fxLayoutAlign="space-around center">
-    <mat-card class="custom-card shipping-card" fxLayout="column" fxLayoutGap="10px">
+    <mat-card class="create-event-card" fxLayout="column" fxLayoutGap="10px">
         <mat-toolbar color="primary">
             <span>CREATE EVENT</span>
         </mat-toolbar>
 
 
-        <mat-card-content style="padding-left: 10px;">
+        <mat-card-content style="padding: 0px 10px 0px 10px;">
 
             <div fxLayout="row wrap" fxLayoutAlign="space-between center" fxLayoutGap="10px">
                 <mat-form-field appearance="outline" fxFlex="48" fxFlex.xs="100">
@@ -38,9 +38,12 @@
 
                 <mat-form-field appearance="outline" fxFlex="48" fxFlex.xs="100">
                     <mat-label>Event Time *</mat-label>
-                    <input matInput placeholder="Time" formControlName="time" />
+                    <input matInput placeholder="Ex. 1:00 pm | 12:59 am" formControlName="time" />
                     <mat-error *ngIf="eventForm.controls['time'].hasError('required')">
                         Time is <strong>required</strong>
+                    </mat-error>
+                    <mat-error *ngIf="eventForm.controls['time'].hasError('pattern')">
+                        Wrong format Ex.<strong>1:03 pm | 12:59 am </strong>
                     </mat-error>
                 </mat-form-field>
             </div>

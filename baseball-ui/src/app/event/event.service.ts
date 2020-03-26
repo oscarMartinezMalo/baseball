@@ -5,13 +5,14 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { take, map } from 'rxjs/operators';
+import { EventTeam } from '../shared/models/event.model';
 
 @Injectable({
     providedIn: 'root'
 })
 export class EventService {
-    events: Event[] = [];
-    public subjectEvents = new Subject<Event[]>();
+    events: EventTeam[] = [];
+    public subjectEvents = new Subject<EventTeam[]>();
 
     constructor(
         private http: HttpClient,
@@ -19,7 +20,7 @@ export class EventService {
         private afs: AngularFirestore
     ) { }
 
-    async addEvent(newEvent: Event): Promise<boolean> {
+    async addEvent(newEvent: EventTeam): Promise<boolean> {
         try {
             this.authService.user$.pipe(take(1)).subscribe(async user => {
                 newEvent['team'] = user.team; // Add the to the event
@@ -27,7 +28,7 @@ export class EventService {
 
                 newEvent['id'] = eventAdded.id; // get the id from the response an added to the list
                 this.events.push(newEvent);
-                this.subjectEvents.next(this.events);
+                // this.subjectEvents.next(this.events);
             });
         } catch (error) {
             console.log(error);
@@ -37,7 +38,6 @@ export class EventService {
         return true;
     }
 
-    // deleteEvent(id: string) { }
     async getAllEventCurrentTeam() {
 
         this.authService.user$.pipe(take(1)).subscribe(async user => {
@@ -49,12 +49,12 @@ export class EventService {
 
             if (events.empty) { return; }
 
-            const eventList: Event[] = [];
+            const eventList: EventTeam[] = [];
 
             events.forEach(doc => {
                 const event = doc.data();
                 event.id = doc.id;
-                eventList.push(event as Event);
+                eventList.push(event as EventTeam);
             });
 
             this.events = eventList;
@@ -70,6 +70,16 @@ export class EventService {
 
         return event.data();
     }
+
+
+    deleteEvent(id: string) {
+        this.afs.collection('events').doc(id).delete().then(x => {
+            const index = this.events.findIndex(evnt => evnt.id === id);
+            this.events.splice(index, 1);
+            this.subjectEvents.next(this.events);
+        });
+    }
+
 }
 
 

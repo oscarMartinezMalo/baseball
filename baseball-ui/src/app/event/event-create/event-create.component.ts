@@ -3,6 +3,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { AuthService } from '../../modules/auth/auth.service';
 import { Router } from '@angular/router';
 import { EventService } from '../event.service';
+import { EventTeam } from 'src/app/shared/models/event.model';
 
 @Component({
     selector: 'app-event-create',
@@ -28,7 +29,7 @@ export class EventCreateComponent implements OnInit {
             title: [null, Validators.required],
             subtitle: [null],
             date: [null, Validators.required],
-            time: [null, Validators.required],
+            time: ['6:00 pm', [Validators.required, Validators.pattern(/^((1[0-2]|0?[1-9]):([0-5][0-9]) ?([AaPp][Mm]))/)]],
             comment: [null],
             locationUrl: [null]
         });
@@ -47,7 +48,7 @@ export class EventCreateComponent implements OnInit {
     async onSubmit() {
         if (this.eventForm.invalid) { return; }
 
-        let eventObj: Event;
+        let eventObj: EventTeam;
         eventObj = {
             ...this.eventForm.value,
             lat: this.lat,

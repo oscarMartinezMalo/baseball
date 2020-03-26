@@ -1,4 +1,4 @@
-export class Event {
+export class EventTeam {
     id: string;
     title: string;
     subtitle?: string;

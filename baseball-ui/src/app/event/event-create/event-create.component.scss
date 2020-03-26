@@ -1,44 +1,11 @@
-.event-card {
-    width: 600px;
+.create-event-card {
+    padding: 0px 0px 16px 0px;
+}
 
-    mat-icon {
-        &.event-icon-calendar {
-            font-size: 60px;
-            width: 60px;
-        }
-
-        &.event-icon-place {
-            color: var(--warm);
-            cursor: pointer;
-        }
-    }
-
-    p {
-        margin-block-end: 7px;
-        font-size: 14px;
-    }
-
-    .event-card-header {
-        min-height: 54px;
-    }
-
-    .title-event-card {
-        font-size: 20px;
-        color: var(--primary);
-    }
-
-    .event-card-comment {
-        background-color: var(--accent);
-        color: white;
-        padding: 10px;
-        border-radius: 5px;
-        min-height: 40px;
-        overflow:hidden
-    }
-
-    .map {
-        height: 400px;
-    }
+.mat-toolbar {
+    display: flex;
+    justify-content: center;
+    border-radius: 10px 10px 0px 0px;
 }
 
 agm-map {

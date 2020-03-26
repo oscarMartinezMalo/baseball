@@ -41,7 +41,7 @@ export class ProfileComponent implements OnInit {
             this.onRoleChange(user.roles);  // Load current profile
 
             // Disable Role field and team if is a coach
-            if (user.roles.includes(Roles.COACH)) { this.profileForm.get('team').disable(); console.log('here'); }
+            if (user.roles.includes(Roles.COACH)) { this.profileForm.get('team').disable(); }
 
             // Load the data from current user profile and change the form automatically
             const properties = Object.getOwnPropertyNames(user);
