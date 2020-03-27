@@ -23,10 +23,10 @@ export class EventService {
     async addEvent(newEvent: EventTeam): Promise<boolean> {
         try {
             this.authService.user$.pipe(take(1)).subscribe(async user => {
-                newEvent['team'] = user.team; // Add the to the event
+                newEvent.team = user.team; // Add the to the event
                 const eventAdded = await this.afs.collection('events').add(newEvent);
 
-                newEvent['id'] = eventAdded.id; // get the id from the response an added to the list
+                newEvent.id = eventAdded.id; // get the id from the response an added to the list
                 this.events.push(newEvent);
                 // this.subjectEvents.next(this.events);
             });

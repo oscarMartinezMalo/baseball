@@ -28,7 +28,7 @@ const routes: Routes = [
     { path: 'signin', component: SigninComponent, data: { animation: 'isRight' }, canActivate: [LoggedGuard] },
     { path: 'signup', component: SignupComponent, data: { animation: 'isLeft' }, canActivate: [LoggedGuard] },
 
-    { path: 'profile', component: ProfileComponent, data: { animation: 'isRight' }, canActivate: [AuthGuard] },
+    { path: 'profile', component: ProfileComponent, data: { animation: 'isLeft' }, canActivate: [AuthGuard] },
     { path: 'team-list', component: TeamListComponent, data: { animation: 'isLeft' }, canActivate: [AuthGuard] },
 
     { path: 'event-list', component: EventListComponent, data: { animation: 'isRight' }, canActivate: [AuthGuard] },

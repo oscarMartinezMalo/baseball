@@ -18,11 +18,10 @@ import { bounceOutLeftAnimation, fadeInAnimation } from 'src/app/shared/animatio
         trigger('todoAnimation', [
             transition(':enter', [
                 query('td', [
-                    style({ opacity: 0, transform: 'translateY(20px)' }), animate(1000)
+                    style({ opacity: 0, transform: 'translateY(20px)' }), animate(500)
                 ])
             ]),
             transition(':leave', [
-                // style({ backgroundColor: 'var(--warn)' }),
                 animate(500),
                 useAnimation(bounceOutLeftAnimation)
             ])
